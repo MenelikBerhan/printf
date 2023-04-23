@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <stdarg.h>
 #include <string.h>
 
@@ -27,11 +26,11 @@ typedef struct fmt
 	char type[3];
 	int width;
 	int endidx;
-	bool left;
+	int left;
 	int dp;
-	bool base_prefix;
-	bool i_plus;
-	bool p_plus;
+	int base_prefix;
+	int i_plus;
+	int p_plus;
 	char leading;
 	char (*printer)(void *, struct fmt *);
 } FMT;
