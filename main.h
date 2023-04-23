@@ -39,5 +39,6 @@ typedef char (*FMT_FUNC)(void *, FMT *);
 int _printf(const char *format, ...);
 FMT *get_specifiers(const char *, int *);
 char *int_fmt(void *, FMT *);
+void base_convert(long, int, int, int, int *, char **);
 
 #endif /* MAIN_H */
