@@ -1,25 +1,6 @@
 #include "main.h"
 
 /**
- * inttostr - recursively converts an integer to a string
- * @n: integer to be converted
- * @i: no of recursive calls
- * @res: buffer to store the generated string
- * @neg: is @n a negative number
- */
-void inttostr(long n, int *i, char **res, int neg)
-{
-	long num = n;
-	int j = (*i)++, k;
-	*res = realloc(*res, (j + 1));
-	num /= 10;
-	if (num != 0)
-		inttostr(num, i, res, neg);
-	k = (*i) - (neg ? j : j + 1);
-	(*res)[k] = (n % 10 + '0');
-}
-
-/**
  * int_fmt - converts an integer to a string
  * @data: pointer to the integer
  * @fmt: specifier details
@@ -38,7 +19,7 @@ char *int_fmt(void *data, FMT *fmt)
 		num[0] = '-';
 		i++;
 	}
-	inttostr(n, &i, &num, neg);
+	base_convert(n, 10, 0, neg, &i, &num);
 	num[i] = '\0';
 	if (i < fmt->width)
 	{
@@ -58,7 +39,8 @@ char *int_fmt(void *data, FMT *fmt)
 	{
 		i = (i >= fmt->width) ? i + 1 : fmt->width;
 		num = realloc(num, i + 1);
-		(i > fmt->width || fmt->left) && memmove(&num[1], &num[0], fmt->left ? --i : i);
+		if (i > fmt->width || fmt->left)
+			memmove(&num[1], &num[0], fmt->left ? --i : i);
 		num[0] = (fmt->i_plus) ? ' ' : '+';
 	}
 	return (num);
