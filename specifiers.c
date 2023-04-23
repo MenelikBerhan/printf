@@ -10,43 +10,35 @@
  */
 int fill_fmt(const char *str, FMT *spe, int i)
 {
-	char *ex_str = "SR%";
-	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_str, str[i]))
+	char *ex_char = "SR%";
+
+	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_char, str[i]))
 	{
-		switch (str[i])
-		{
-		case '+':
+		if (str[i] == '+')
 			spe->p_plus = true;
-			break;
-		case ' ':
+		else if (str[i] == ' ')
 			spe->i_plus = true;
-			break;
-		case '-':
+		else if (str[i] == '-')
 			spe->left = true;
-			break;
-		case '.':
+		else if (str[i] == '.')
 			spe->dp = 0;
-			break;
-		case '0':
+		else if (str[i] == '0')
+		{
 			if (spe->width == 0 && !spe->left)
 				spe->leading = '0';
 			else if (spe->dp != -1)
 				spe->dp *= 10;
 			else
 				spe->width *= 10;
-			break;
-		case '#':
+		}
+		else if (str[i] == '#')
 			spe->base_prefix = true;
-			break;
-		default:
-			if (str[i] > '0' && str[i] <= '9')
-			{
-				if (spe->dp == -1)
-					spe->width = spe->width * 10 + (str[i] - '0');
-				else
-					spe->dp = spe->dp * 10 + (str[i] - '0');
-			}
-			break;
+		else if (str[i] > '0' && str[i] <= '9')
+		{
+			if (spe->dp == -1)
+				spe->width = spe->width * 10 + (str[i] - '0');
+			else
+				spe->dp = spe->dp * 10 + (str[i] - '0');
 		}
 		i++;
 	}
