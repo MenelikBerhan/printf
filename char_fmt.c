@@ -2,7 +2,7 @@
 
 /**
  * char_fmt - formats a character based on format specifier fmt.
- * @c: A pointer to the character.
+ * @data: A pointer to the character.
  * @fmt: An FMT type format specifier.
  *
  * Return: The formatted string.
@@ -31,7 +31,7 @@ char *char_fmt(void *data, FMT *fmt)
 	}
 	else
 	{
-		str[len -1] = ch;
+		str[len - 1] = ch;
 		for (i = 0; i < len - 1; i++)
 			str[i] = ' ';
 	}
