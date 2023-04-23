@@ -60,7 +60,6 @@ char *int_fmt(void *data, FMT *fmt)
 		num = realloc(num, i + 1);
 		(i > fmt->width || fmt->left) && memmove(&num[1], &num[0], fmt->left ? --i : i);
 		num[0] = (fmt->i_plus) ? ' ' : '+';
-		// if (i < fmt-> width && !fmt->left)
 	}
 	return (num);
 }
