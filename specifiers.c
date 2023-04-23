@@ -15,11 +15,11 @@ int fill_fmt(const char *str, FMT *spe, int i)
 	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_char, str[i]))
 	{
 		if (str[i] == '+')
-			spe->p_plus = true;
+			spe->p_plus = 1;
 		else if (str[i] == ' ')
-			spe->i_plus = true;
+			spe->i_plus = 1;
 		else if (str[i] == '-')
-			spe->left = true;
+			spe->left = 1;
 		else if (str[i] == '.')
 			spe->dp = 0;
 		else if (str[i] == '0')
@@ -32,7 +32,7 @@ int fill_fmt(const char *str, FMT *spe, int i)
 				spe->width *= 10;
 		}
 		else if (str[i] == '#')
-			spe->base_prefix = true;
+			spe->base_prefix = 1;
 		else if (str[i] > '0' && str[i] <= '9')
 		{
 			if (spe->dp == -1)
@@ -65,12 +65,12 @@ FMT *get_specifiers(const char *str, int *count)
 			spe = &specifiers[j];
 			i++;
 			spe->width = 0;
-			spe->left = false;
+			spe->left = 0;
 			spe->dp = -1;
-			spe->i_plus = false;
-			spe->p_plus = false;
+			spe->i_plus = 0;
+			spe->p_plus = 0;
 			spe->leading = ' ';
-			spe->base_prefix = false;
+			spe->base_prefix = 0;
 
 			i = fill_fmt(str, spe, i);
 
