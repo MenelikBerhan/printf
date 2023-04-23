@@ -29,7 +29,7 @@ void inttostr(long n, int *i, char **res, int neg)
 char *int_fmt(void *data, FMT *fmt)
 {
 	long n = *(long *)data;
-	int neg = n < 0, i = 1, factor;
+	int neg = n < 0, i = 1, j, factor;
 	char *num = malloc(i + 1);
 
 	if (neg)
@@ -50,16 +50,17 @@ char *int_fmt(void *data, FMT *fmt)
 			memset(neg ? &num[1] : num, fmt->leading, factor);
 		}
 		else
-			for (; i <= fmt->width; i++)
-				num[i - 1] = ' ';
+			for (j = i; j <= fmt->width; j++)
+				num[j - 1] = ' ';
 		num[fmt->width] = '\0';
 	}
 	if ((fmt->p_plus || fmt->i_plus) && !neg)
 	{
 		i = (i >= fmt->width) ? i + 1 : fmt->width;
 		num = realloc(num, i + 1);
-		(i > fmt->width) && memmove(&num[1], &num[0], i);
+		(i > fmt->width || fmt->left) && memmove(&num[1], &num[0], fmt->left ? --i : i);
 		num[0] = (fmt->i_plus) ? ' ' : '+';
+		// if (i < fmt-> width && !fmt->left)
 	}
 	return (num);
 }
