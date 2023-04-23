@@ -10,7 +10,8 @@
  */
 int fill_fmt(const char *str, FMT *spe, int i)
 {
-	while (str[i] < 'a' || str[i] > 'z')
+	char *ex_str = "SR%";
+	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_str, str[i]))
 	{
 		switch (str[i])
 		{
@@ -29,6 +30,8 @@ int fill_fmt(const char *str, FMT *spe, int i)
 		case '0':
 			if (spe->width == 0 && !spe->left)
 				spe->leading = '0';
+			else if (spe->dp != -1)
+				spe->dp *= 10;
 			else
 				spe->width *= 10;
 			break;
@@ -36,7 +39,7 @@ int fill_fmt(const char *str, FMT *spe, int i)
 			spe->base_prefix = true;
 			break;
 		default:
-			if (str[i] >= '0' && str[i] <= '9')
+			if (str[i] > '0' && str[i] <= '9')
 			{
 				if (spe->dp == -1)
 					spe->width = spe->width * 10 + (str[i] - '0');
@@ -83,6 +86,7 @@ FMT *get_specifiers(const char *str, int *count)
 			strncpy(spe->type, &str[i], k);
 			spe->type[k] = '\0';
 			i += k;
+			spe->endidx = i;
 			j++;
 		}
 		else
