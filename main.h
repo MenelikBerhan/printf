@@ -20,10 +20,10 @@ typedef struct fmt
   char leading;
   char (*printer)(void *, struct fmt *);
 } FMT;
-typedef char (*FMT_FUNC)(void *, struct fmt *);
+typedef char (*FMT_FUNC)(void *, FMT *);
 
 int _printf(const char *format, ...);
 FMT *get_specifiers(const char *, int *);
-char *int_fmt(void *, FMT);
+char *int_fmt(void *, FMT *);
 
 #endif /* MAIN_H */
