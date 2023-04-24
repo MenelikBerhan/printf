@@ -11,7 +11,7 @@
 char *str_fmt(void *data, FMT *fmt)
 {
 	char *s = (char *) data, *str;
-	int l_str, i, j, l_data;
+	int l_str, l_data;
 
 	l_data = strlen(s);
 
@@ -90,7 +90,7 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 		{
 			for (i = 0; i < l_str - fmt->dp; i++)
 				str[i] = ' ';
-			for (j = 0; i < l_str, j < fmt->dp; i++, j++)
+			for (j = 0; i < l_str && j < fmt->dp; i++, j++)
 				str[i] = src[j];
 
 		}
@@ -98,7 +98,7 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 		{
 			for (i = 0; i < l_str - l_src; i++)
 				str[i] = ' ';
-			for (j = 0; i < l_str, j < l_src; i++, j++)
+			for (j = 0; i < l_str && j < l_src; i++, j++)
 				str[i] = src[j];
 		}
 	}
