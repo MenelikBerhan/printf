@@ -39,6 +39,8 @@ typedef char (*FMT_FUNC)(void *, FMT *);
 int _printf(const char *format, ...);
 FMT *get_specifiers(const char *, int *);
 char *int_fmt(void *, FMT *);
+char *printable_str(void *, FMT *);
+char *pointer_fmt(void *, FMT *);
 void base_convert(long, int, int, int, int *, char **);
 char *char_fmt(void *data, FMT *fmt);
 char *str_fmt(void *data, FMT *fmt);
