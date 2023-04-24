@@ -46,15 +46,36 @@ int fill_fmt(const char *str, FMT *spe, int i)
 }
 
 /**
+ * assign_printer - assigns a printer function to the fmt struct
+ * @spe: format struct
+ */
+void assign_printer(FMT *spe)
+{
+	char t = spe->type;
+
+	if (t == 'd' || t == 'i' || t == 'u')
+		spe->printer = int_fmt;
+	else if (t == '%')
+		spe->printer = prcnt_fmt;
+	else if (t == 'c')
+		spe->printer = char_fmt;
+	else if (t == 's')
+		spe->printer = str_fmt;
+	else if (t == 'x' || t == 'X')
+		spe->printer = hex_fmt;
+	else if (t == 'p')
+		spe->printer = pointer_fmt;
+}
+
+/**
  * get_specifiers - gets and organises the format specifiers in an input string
  * @str: input string
- * @count: buffer to store no of specifiers
  *
  * Return: an array of format specifiers, NULL if no format specifiers found.
  */
 FMT *get_specifiers(const char *str)
 {
-	int i = 0, j = 0, k = 0;
+	int i = 0, j = 0;
 	FMT *specifiers = malloc(sizeof(FMT) * (j + 1)), *spe;
 
 	while (str[i])
@@ -74,10 +95,9 @@ FMT *get_specifiers(const char *str)
 
 			i = fill_fmt(str, spe, i);
 
-			k = (str[i] == 'l' || str[i] == 'h') ? 2 : 1;
-			strncpy(spe->type, &str[i], k);
-			spe->type[k] = '\0';
-			i += k;
+			spe->ex_type = (str[i] == 'l' || str[i] == 'h') ? str[i] : '\0';
+			spe->type = (str[i] == 'l' || str[i] == 'h') ? str[i + 1] : str[i];
+			i += (str[i] == 'l' || str[i] == 'h') ? 2 : 1;
 			spe->endidx = i;
 			j++;
 		}

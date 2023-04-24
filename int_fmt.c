@@ -21,7 +21,7 @@ char *int_fmt(void *data, FMT *fmt)
 	}
 	base_convert(n, 10, 0, neg, &i, &num);
 	num[i - 1] = '\0';
-	i = p_w_int(i, fmt->dp, fmt->width, fmt->left, neg, fmt->leading, &num);
+	i = p_w_int(i, neg, fmt, &num);
 	if ((fmt->p_plus || fmt->i_plus) && !neg)
 	{
 		i = (i >= fmt->width) ? i : fmt->width;
