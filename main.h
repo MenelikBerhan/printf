@@ -53,6 +53,8 @@ char *str_fmt(va_list args, FMT *fmt);
 char *prcnt_fmt(va_list args, FMT *fmt);
 char *rev_fmt(va_list args, FMT *fmt);
 char *rot13_fmt(va_list args, FMT *fmt);
+char *oct_fmt(va_list args, FMT *fmt);
+char *bin_fmt(va_list args, FMT *fmt);
 void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 int print_buffer(char *str);
