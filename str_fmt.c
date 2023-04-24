@@ -31,7 +31,7 @@ char *str_fmt(void *data, FMT *fmt)
  * @width: width specifier.
  * @dp: precision specifier.
  * @l_data: length of string to be formatted.
- * 
+ *
  * Return: The required buffer length excluding terminating null.
 */
 
@@ -45,7 +45,7 @@ int str_buffer_size(int width, int dp, int l_data)
 	}
 	else
 	{
-		if (dp == -1 || dp >= l_data) 
+		if (dp == -1 || dp >= l_data)
 			l_str = l_data;
 		else
 			l_str = dp >= width ? dp : width;
@@ -92,7 +92,7 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 				str[i] = ' ';
 			for (j = 0; i < l_str, j < fmt->dp; i++, j++)
 				str[i] = src[j];
-			
+
 		}
 		else
 		{
