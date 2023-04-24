@@ -3,38 +3,44 @@
 /**
  * p_w_int - handles precision and width flags for integers of all bases
  * @i: current length
- * @dp: precision
- * @width: width
- * @left: left justify
  * @n: is the num negative
- * @lead: leading character
+ * @fmt: format struct
  * @num: buffer to store string
  *
  * Return: final precision
  */
-int p_w_int(int i, int dp, int width, int left, int n, char lead, char **num)
+int p_w_int(int i, int n, FMT *fmt, char **num)
 {
 	int factor;
 
-	if (i < dp)
+	if (i < fmt->dp)
 	{
-		*num = realloc(*num, (sizeof(char) * (dp + 1)));
-		factor = dp - i + 1;
+		*num = realloc(*num, (sizeof(char) * (fmt->dp + 1)));
+		factor = fmt->dp - i + 1;
 		memmove(*num + (n ? 1 : 0) + factor, *num + (n ? 1 : 0), i);
 		memset(*num + (n ? 1 : 0), '0', factor);
-		i = dp;
+		i = fmt->dp;
 	}
-	if (i < width)
+	if (fmt->base_prefix)
 	{
-		*num = realloc(*num, (sizeof(char) * (width + 1)));
-		factor = width - i;
-		memset(*num + (n ? 1 : 0) + i, dp > 0 ? ' ' : lead, factor);
-		if (!left)
+		i += fmt->type == 'o' ? 1 : 2;
+		*num = realloc(*num, i + 1);
+		memmove(*num + 2, *num, fmt->left ? --i : i);
+		(*num)[0] = '0';
+		if (fmt->type == 'x' || fmt->type == 'X')
+			(*num)[1] = 'x';
+	}
+	if (i < fmt->width)
+	{
+		*num = realloc(*num, (sizeof(char) * (fmt->width + 1)));
+		factor = fmt->width - i;
+		memset(*num + (n ? 1 : 0) + i, fmt->dp > 0 ? ' ' : fmt->leading, factor);
+		if (!fmt->left)
 		{
 			memmove(*num + (n ? 1 : 0) + factor, *num + (n ? 1 : 0), i);
 			memset(*num + (n ? 1 : 0), ' ', factor);
 		}
 	}
-	(*num)[width] = '\0';
+	(*num)[fmt->width] = '\0';
 	return (i);
 }

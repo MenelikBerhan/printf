@@ -26,7 +26,8 @@
  */
 typedef struct fmt
 {
-	char type[3];
+	char type;
+	char ex_type;
 	int width;
 	int endidx;
 	int left;
@@ -35,21 +36,22 @@ typedef struct fmt
 	int i_plus;
 	int p_plus;
 	char leading;
-	char (*printer)(void *, struct fmt *);
+	char *(*printer)(void *, struct fmt *);
 } FMT;
-typedef char (*FMT_FUNC)(void *, FMT *);
+typedef char *(*FMT_FUNC)(void *, FMT *);
 
 int _printf(const char *format, ...);
-FMT *get_specifiers(const char *);
-char *int_fmt(void *, FMT *);
-char *printable_str(void *, FMT *);
-char *pointer_fmt(void *, FMT *);
-void base_convert(long, int, int, int, int *, char **);
+FMT *get_specifiers(const char *str);
+char *int_fmt(void *data, FMT *fmt);
+char *printable_str(void *data, FMT *fmt);
+char *pointer_fmt(void *data, FMT *fmt);
+char *hex_fmt(void *data, FMT *fmt);
 char *char_fmt(void *data, FMT *fmt);
 char *str_fmt(void *data, FMT *fmt);
-char *prcnt_fmt(void *data , FMT *fmt);
-int p_w_int(int, int, int, int, int, char, char **);
-void print_buffer(char *);
+char *prcnt_fmt(void *data, FMT *fmt);
+void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
+int p_w_int(int i, int n, FMT *fmt, char **num);
+void print_buffer(char *str);
 char *rev_fmt(void *data, FMT *fmt);
 char *rot13_fmt(void *data, FMT *fmt);
 

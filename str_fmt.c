@@ -1,6 +1,30 @@
 #include "main.h"
 
 /**
+ * str_fmt - formats string 'data' based on format specifier fmt.
+ * @data: The string to be formatted.
+ * @fmt: An FMT type format specifier.
+ *
+ * Return: The formatted string.
+*/
+char *str_fmt(void *data, FMT *fmt)
+{
+	char *s = (char *) data, *str;
+	int l_str, l_data;
+
+	l_data = strlen(s);
+
+	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
+
+	str = malloc(sizeof(char) * (l_str + 1));
+	str[l_str] = '\0';
+
+	str_buffer_write(s, l_data, str, l_str, fmt);
+
+	return (str);
+}
+
+/**
  * str_buffer_size - finds the appropraite size for a buffer on which
  * a formatted string is to be written.
  * @width: width specifier.
@@ -8,8 +32,7 @@
  * @l_data: length of string to be formatted.
  *
  * Return: The required buffer length excluding terminating null.
-*/
-
+ */
 int str_buffer_size(int width, int dp, int l_data)
 {
 	int l_str;
@@ -36,8 +59,7 @@ int str_buffer_size(int width, int dp, int l_data)
  * @str: The buffer to write to.
  * @l_str: Length of str.
  * @fmt: An FMT type format specifier.
-*/
-
+ */
 void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 {
 	int i, j, len;
