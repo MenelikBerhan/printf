@@ -44,6 +44,6 @@ char *char_fmt(void *data, FMT *fmt);
 char *str_fmt(void *data, FMT *fmt);
 int str_buffer_size(int width, int dp, int l_data);
 void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt);
-char *prcnt_fmt(void *data, FMT *fmt);
+char *prcnt_fmt(void *data __attribute__((unused)), FMT *fmt);
 
 #endif /* MAIN_H */
