@@ -12,6 +12,7 @@
 /**
  * struct fmt - struct for format specifiers details
  * @type: data type of specifier
+ * @ex_type: supporting type for ints (long or short)
  * @width: minimum width
  * @endidx: index of the next string char after the fmt has been read
  * @left: left justify
@@ -52,5 +53,7 @@ char *prcnt_fmt(void *data, FMT *fmt);
 void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 void print_buffer(char *str);
+char *rev_fmt(void *data, FMT *fmt);
+char *rot13_fmt(void *data, FMT *fmt);
 
 #endif /* MAIN_H */
