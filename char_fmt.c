@@ -10,7 +10,7 @@
 
 char *char_fmt(va_list args, FMT *fmt)
 {
-	char ch = va_arg(args, int), *str;
+	char ch = va_arg(args, char), *str;
 	int len, i;
 
 	len = fmt->width ? fmt->width : 1;

@@ -65,6 +65,10 @@ void assign_printer(FMT *spe)
 		spe->printer = str_fmt;
 	else if (t == 'x' || t == 'X')
 		spe->printer = hex_fmt;
+	else if (t == 'o')
+		spe->printer = oct_fmt;
+	else if (t == 'b')
+		spe->printer = bin_fmt;
 	else if (t == 'p')
 		spe->printer = pointer_fmt;
 	else if (t == 'S')

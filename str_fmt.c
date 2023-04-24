@@ -64,18 +64,10 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
  * @fmt: An FMT type format specifier.
  *
  * Return: The formatted string.
-<<<<<<< HEAD
  */
 char *str_fmt(va_list args, FMT *fmt)
 {
 	char *s = va_arg(args, char *), *str;
-=======
-*/
-
-char *str_fmt(void *data, FMT *fmt)
-{
-	char *s = (char *) data, *str;
->>>>>>> a50225995137876b4370cc314d36f18a82020e60
 	int l_str, l_data;
 
 	l_data = strlen(s);

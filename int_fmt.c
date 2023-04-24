@@ -9,7 +9,7 @@
  */
 char *int_fmt(va_list args, FMT *fmt)
 {
-	long n = va_arg(args, int);
+	long n = va_arg(args, long);
 	int neg = n < 0, i = 1;
 	char *num = malloc(i + 1);
 

@@ -3,14 +3,14 @@
 
 /**
  * oct_fmt - converts an integer into octal.
- * @data: pointer to the integer
+ * @args: variadic argument list
  * @fmt: specifier details
  *
  * Return: the string
  */
-char *oct_fmt(void *data, FMT *fmt)
+char *oct_fmt(va_list args, FMT *fmt)
 {
-	long n = *(long *)data;
+	long n = va_arg(args, long);
 	int i = 1;
 	char *num = malloc(i + 1);
 
