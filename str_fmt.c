@@ -71,16 +71,16 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 
 	if (fmt->left)
 	{
-			for (i = 0; i < len; i++)
-				str[i] = src[i];
-			for (; i < l_str; i++)
-				str[i] = ' ';
+		for (i = 0; i < len; i++)
+			str[i] = src[i];
+		for (; i < l_str; i++)
+			str[i] = ' ';
 	}
 	else
 	{
-			for (i = 0; i < l_str - len; i++)
-				str[i] = ' ';
-			for (j = 0; i < l_str && j < len; i++, j++)
-				str[i] = src[j];
+		for (i = 0; i < l_str - len; i++)
+			str[i] = ' ';
+		for (j = 0; i < l_str && j < len; i++, j++)
+			str[i] = src[j];
 	}
 }
