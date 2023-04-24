@@ -31,8 +31,9 @@ char *rot13_fmt(void *data, FMT *fmt)
 				str[i] = c_o[j];
 				break;
 			}
-			str[i] = s[i];
 		}
+		if (j == 52)
+			str[i] = s[i];
 	}
 	return (str);
 }
