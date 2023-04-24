@@ -13,58 +13,93 @@ char *str_fmt(void *data, FMT *fmt)
 	char *s = (char *) data, *str;
 	int l_str, i, j, l_data;
 
-	/* if (!s)
-		s = "(null)"; */
 	l_data = strlen(s);
-	if (fmt->width >= l_data)
-	{
-		l_str = fmt->width;
-	}
-	else
-	{
-		if (fmt->dp == -1 || fmt->dp >= l_data) 
-			l_str = l_data;
-		else
-			l_str = fmt->dp >= fmt->width ? fmt->dp : fmt->width;
-	}
+
+	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
+
 	str = malloc(sizeof(char) * (l_str + 1));
 	str[l_str] = '\0';
 
+	str_buffer_write(s, l_data, str, l_str, fmt);
+
+	return (str);
+}
+
+/**
+ * str_buffer_size - finds the appropraite size for a buffer on which
+ * a formatted string is to be written.
+ * @width: width specifier.
+ * @dp: precision specifier.
+ * @l_data: length of string to be formatted.
+ * 
+ * Return: The required buffer length excluding terminating null.
+*/
+
+int str_buffer_size(int width, int dp, int l_data)
+{
+	int l_str;
+
+	if (width >= l_data)
+	{
+		l_str = width;
+	}
+	else
+	{
+		if (dp == -1 || dp >= l_data) 
+			l_str = l_data;
+		else
+			l_str = dp >= width ? dp : width;
+	}
+
+	return (l_str);
+}
+
+/**
+ * str_buffer_write - Writes on str a formatted src string based on fmt.
+ * @src: The string to be formatted.
+ * @l_src: Length of src string.
+ * @str: The buffer to write to.
+ * @l_str: Length of str.
+ * @fmt: An FMT type format specifier.
+*/
+
+void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
+{
+	int i, j;
+
 	if (fmt->left)
 	{
-		if (fmt->dp != -1 && fmt->dp < l_data)
+		if (fmt->dp != -1 && fmt->dp < l_src)
 		{
 			for (i = 0; i < fmt->dp; i++)
-				str[i] = s[i];
+				str[i] = src[i];
 			for (; i < l_str; i++)
 				str[i] = ' ';
 		}
-		else if (fmt->dp >= l_data)
+		else
 		{
-			for (i = 0; i < l_data; i++)
-				str[i] = s[i];
+			for (i = 0; i < l_src; i++)
+				str[i] = src[i];
 			for (; i < l_str; i++)
 				str[i] = ' ';
 		}
 	}
 	else
 	{
-		if (fmt->dp != -1 && fmt->dp < l_data)
+		if (fmt->dp != -1 && fmt->dp < l_src)
 		{
 			for (i = 0; i < l_str - fmt->dp; i++)
 				str[i] = ' ';
 			for (j = 0; i < l_str, j < fmt->dp; i++, j++)
-				str[i] = s[j];
+				str[i] = src[j];
 			
 		}
-		else if (fmt->dp >= l_data)
+		else
 		{
-			for (i = 0; i < l_str - l_data; i++)
+			for (i = 0; i < l_str - l_src; i++)
 				str[i] = ' ';
-			for (j = 0; i < l_str, j < l_data; i++, j++)
-				str[i] = s[j];
+			for (j = 0; i < l_str, j < l_src; i++, j++)
+				str[i] = src[j];
 		}
 	}
-
-	return (str);
 }
