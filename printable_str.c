@@ -7,12 +7,13 @@
  *
  * Return: the string
  */
-char *printable_str(void *data, FMT *fmt __attribute__((unused)))
+char *printable_str(void *data, FMT *fmt)
 {
 	char *s = *(char **)data;
 	int len = strlen(s);
 	char *str = malloc(len * 4 + 1);
 	int i, j = 0;
+	(void)fmt;
 
 	for (i = 0; i < len; i++)
 	{
