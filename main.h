@@ -51,5 +51,6 @@ char *prcnt_fmt(void *data , FMT *fmt);
 int p_w_int(int, int, int, int, int, char, char **);
 void print_buffer(char *);
 char *rev_fmt(void *data, FMT *fmt);
+char *rot13_fmt(void *data, FMT *fmt);
 
 #endif /* MAIN_H */
