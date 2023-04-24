@@ -12,6 +12,7 @@ char *rev_fmt(void *data, FMT *fmt)
 {
 	char *s = (char *) data, *str;
 	int i, len = 0;
+	(void)fmt;
 
 	for (i = 0; s[i]; i++)
 		len++;
