@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <unistd.h>
+
+#define BUFFER_SIZE 1024
 
 /**
  * struct fmt - struct for format specifiers details
@@ -37,7 +40,7 @@ typedef struct fmt
 typedef char (*FMT_FUNC)(void *, FMT *);
 
 int _printf(const char *format, ...);
-FMT *get_specifiers(const char *, int *);
+FMT *get_specifiers(const char *);
 char *int_fmt(void *, FMT *);
 char *printable_str(void *, FMT *);
 char *pointer_fmt(void *, FMT *);
@@ -47,5 +50,7 @@ char *str_fmt(void *data, FMT *fmt);
 int str_buffer_size(int width, int dp, int l_data);
 void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt);
 char *prcnt_fmt(void *data __attribute__((unused)), FMT *fmt);
+int p_w_int(int, int, int, int, int, char, char **);
+void print_buffer(char *);
 
 #endif /* MAIN_H */
