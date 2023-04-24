@@ -52,7 +52,7 @@ int fill_fmt(const char *str, FMT *spe, int i)
  *
  * Return: an array of format specifiers, NULL if no format specifiers found.
  */
-FMT *get_specifiers(const char *str, int *count)
+FMT *get_specifiers(const char *str)
 {
 	int i = 0, j = 0, k = 0;
 	FMT *specifiers = malloc(sizeof(FMT) * (j + 1)), *spe;
@@ -84,6 +84,5 @@ FMT *get_specifiers(const char *str, int *count)
 		else
 			i++;
 	}
-	*count = j;
 	return (!j ? NULL : specifiers);
 }
