@@ -65,41 +65,22 @@ int str_buffer_size(int width, int dp, int l_data)
 
 void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 {
-	int i, j;
+	int i, j, len;
+
+	len = (fmt->dp != -1 && fmt->dp < l_src) ? fmt->dp : l_src;
 
 	if (fmt->left)
 	{
-		if (fmt->dp != -1 && fmt->dp < l_src)
-		{
-			for (i = 0; i < fmt->dp; i++)
+			for (i = 0; i < len; i++)
 				str[i] = src[i];
 			for (; i < l_str; i++)
 				str[i] = ' ';
-		}
-		else
-		{
-			for (i = 0; i < l_src; i++)
-				str[i] = src[i];
-			for (; i < l_str; i++)
-				str[i] = ' ';
-		}
 	}
 	else
 	{
-		if (fmt->dp != -1 && fmt->dp < l_src)
-		{
-			for (i = 0; i < l_str - fmt->dp; i++)
+			for (i = 0; i < l_str - len; i++)
 				str[i] = ' ';
-			for (j = 0; i < l_str && j < fmt->dp; i++, j++)
+			for (j = 0; i < l_str && j < len; i++, j++)
 				str[i] = src[j];
-
-		}
-		else
-		{
-			for (i = 0; i < l_str - l_src; i++)
-				str[i] = ' ';
-			for (j = 0; i < l_str && j < l_src; i++, j++)
-				str[i] = src[j];
-		}
 	}
 }
