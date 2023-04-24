@@ -2,7 +2,7 @@
 
 /**
  * pointer_fmt - converts a pointer address to a string
- * @data: pointer to the integer
+ * @args: variadic argument list
  * @fmt: specifier details
  *
  * Return: the string

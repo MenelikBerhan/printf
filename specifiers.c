@@ -53,8 +53,10 @@ void assign_printer(FMT *spe)
 {
 	char t = spe->type;
 
-	if (t == 'd' || t == 'i' || t == 'u')
+	if (t == 'd' || t == 'i')
 		spe->printer = int_fmt;
+	else if (t == 'u')
+		spe->printer = sign_int_fmt;
 	else if (t == '%')
 		spe->printer = prcnt_fmt;
 	else if (t == 'c')

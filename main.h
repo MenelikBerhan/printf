@@ -44,6 +44,7 @@ typedef char *(*FMT_FUNC)(va_list args, FMT *fmt);
 int _printf(const char *format, ...);
 FMT *get_specifiers(const char *str);
 char *int_fmt(va_list args, FMT *fmt);
+char *sign_int_fmt(va_list args, FMT *fmt);
 char *printable_str(va_list args, FMT *fmt);
 char *pointer_fmt(va_list args, FMT *fmt);
 char *hex_fmt(va_list args, FMT *fmt);

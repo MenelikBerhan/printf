@@ -15,7 +15,6 @@ int _printf(const char *format, ...)
 	char *buffer = malloc(size), *str;
 
 	va_start(args, format);
-	puts("starting");
 	for (i = 0; format[i]; i++)
 	{
 		if (k >= size - 1)

@@ -2,7 +2,7 @@
 
 /**
  * rot13_fmt - formats string data using rot13 cipher.
- * @data: string to be rot13'ed.
+ * @args: variadic argument list
  * @fmt: format specifier.
  *
  * Return: the rot13'ed string.

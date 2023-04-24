@@ -3,7 +3,7 @@
 
 /**
  * hex_fmt - converts an integer into hexadecimal
- * @data: pointer to the integer
+ * @args: variadic argument list
  * @fmt: specifier details
  *
  * Return: the string

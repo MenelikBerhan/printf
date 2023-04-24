@@ -2,7 +2,7 @@
 
 /**
  * prcnt_fmt - creates a string "%" for %% conversion specification.
- * @data: A void pointer. Not Used.
+ * @args: variadic argument list
  * @fmt: An FMT type format specifier.
  *
  * Return: The string "%" if fmt->type = "%" or empty string otherwise.

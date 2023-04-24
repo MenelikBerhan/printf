@@ -2,7 +2,7 @@
 
 /**
  * rev_fmt - reverses the string data.
- * @data: string to be reversed.
+ * @args: variadic argument list
  * @fmt: format specifier.
  *
  * Return: the reversed string.

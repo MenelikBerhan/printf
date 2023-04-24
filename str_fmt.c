@@ -60,7 +60,7 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 
 /**
  * str_fmt - formats string 'data' based on format specifier fmt.
- * @data: The string to be formatted.
+ * @args: variadic argument list
  * @fmt: An FMT type format specifier.
  *
  * Return: The formatted string.

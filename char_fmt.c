@@ -2,7 +2,7 @@
 
 /**
  * char_fmt - formats a character based on format specifier fmt.
- * @data: A pointer to the character.
+ * @args: variadic argument list
  * @fmt: An FMT type format specifier.
  *
  * Return: The formatted string.
