@@ -7,9 +7,9 @@
  *
  * Return: the string
  */
-char *printable_str(void *data, FMT *fmt)
+char *printable_str(va_list args, FMT *fmt)
 {
-	char *s = *(char **)data;
+	char *s = va_arg(args, char *);
 	int len = strlen(s);
 	char *str = malloc(len * 4 + 1);
 	int i, j = 0;

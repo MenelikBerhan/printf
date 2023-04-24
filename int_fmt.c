@@ -7,9 +7,9 @@
  *
  * Return: the string
  */
-char *int_fmt(void *data, FMT *fmt)
+char *int_fmt(va_list args, FMT *fmt)
 {
-	long n = *(long *)data;
+	long n = va_arg(args, int);
 	int neg = n < 0, i = 1;
 	char *num = malloc(i + 1);
 

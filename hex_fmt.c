@@ -8,9 +8,9 @@
  *
  * Return: the string
  */
-char *hex_fmt(void *data, FMT *fmt)
+char *hex_fmt(va_list args, FMT *fmt)
 {
-	long n = *(long *)data;
+	long n = va_arg(args, int);
 	int i = 1, hex_cap = fmt->type == 'X';
 	char *num = malloc(i + 1);
 

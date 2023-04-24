@@ -65,9 +65,9 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
  *
  * Return: The formatted string.
  */
-char *str_fmt(void *data, FMT *fmt)
+char *str_fmt(va_list args, FMT *fmt)
 {
-	char *s = (char *)data, *str;
+	char *s = va_arg(args, char *), *str;
 	int l_str, l_data;
 
 	l_data = strlen(s);

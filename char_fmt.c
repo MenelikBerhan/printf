@@ -6,11 +6,11 @@
  * @fmt: An FMT type format specifier.
  *
  * Return: The formatted string.
-*/
+ */
 
-char *char_fmt(void *data, FMT *fmt)
+char *char_fmt(va_list args, FMT *fmt)
 {
-	char ch = *(char *) data, *str;
+	char ch = va_arg(args, int), *str;
 	int len, i;
 
 	len = fmt->width ? fmt->width : 1;

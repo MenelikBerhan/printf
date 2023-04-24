@@ -65,6 +65,12 @@ void assign_printer(FMT *spe)
 		spe->printer = hex_fmt;
 	else if (t == 'p')
 		spe->printer = pointer_fmt;
+	else if (t == 'S')
+		spe->printer = printable_str;
+	else if (t == 'r')
+		spe->printer = rev_fmt;
+	else if (t == 'R')
+		spe->printer = rot13_fmt;
 }
 
 /**
@@ -98,6 +104,7 @@ FMT *get_specifiers(const char *str)
 			spe->ex_type = (str[i] == 'l' || str[i] == 'h') ? str[i] : '\0';
 			spe->type = (str[i] == 'l' || str[i] == 'h') ? str[i + 1] : str[i];
 			i += (str[i] == 'l' || str[i] == 'h') ? 2 : 1;
+			assign_printer(spe);
 			spe->endidx = i;
 			j++;
 		}

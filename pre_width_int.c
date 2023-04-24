@@ -40,7 +40,7 @@ int p_w_int(int i, int n, FMT *fmt, char **num)
 			memmove(*num + (n ? 1 : 0) + factor, *num + (n ? 1 : 0), i);
 			memset(*num + (n ? 1 : 0), ' ', factor);
 		}
+		(*num)[fmt->width] = '\0';
 	}
-	(*num)[fmt->width] = '\0';
 	return (i);
 }

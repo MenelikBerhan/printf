@@ -6,13 +6,13 @@
  * @fmt: format specifier.
  *
  * Return: the rot13'ed string.
-*/
+ */
 
-char *rot13_fmt(void *data, FMT *fmt)
+char *rot13_fmt(va_list args, FMT *fmt)
 {
 	char *c_i = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char *c_o = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	char *s = (char *) data, *str;
+	char *s = va_arg(args, char *), *str;
 	int i, j, len = 0;
 	(void)fmt;
 

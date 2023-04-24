@@ -37,23 +37,23 @@ typedef struct fmt
 	int i_plus;
 	int p_plus;
 	char leading;
-	char *(*printer)(void *, struct fmt *);
+	char *(*printer)(va_list args, struct fmt *fmt);
 } FMT;
-typedef char *(*FMT_FUNC)(void *, FMT *);
+typedef char *(*FMT_FUNC)(va_list args, FMT *fmt);
 
 int _printf(const char *format, ...);
 FMT *get_specifiers(const char *str);
-char *int_fmt(void *data, FMT *fmt);
-char *printable_str(void *data, FMT *fmt);
-char *pointer_fmt(void *data, FMT *fmt);
-char *hex_fmt(void *data, FMT *fmt);
-char *char_fmt(void *data, FMT *fmt);
-char *str_fmt(void *data, FMT *fmt);
-char *prcnt_fmt(void *data, FMT *fmt);
+char *int_fmt(va_list args, FMT *fmt);
+char *printable_str(va_list args, FMT *fmt);
+char *pointer_fmt(va_list args, FMT *fmt);
+char *hex_fmt(va_list args, FMT *fmt);
+char *char_fmt(va_list args, FMT *fmt);
+char *str_fmt(va_list args, FMT *fmt);
+char *prcnt_fmt(va_list args, FMT *fmt);
+char *rev_fmt(va_list args, FMT *fmt);
+char *rot13_fmt(va_list args, FMT *fmt);
 void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
 int p_w_int(int i, int n, FMT *fmt, char **num);
-void print_buffer(char *str);
-char *rev_fmt(void *data, FMT *fmt);
-char *rot13_fmt(void *data, FMT *fmt);
+int print_buffer(char *str);
 
 #endif /* MAIN_H */

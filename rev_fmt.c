@@ -6,11 +6,11 @@
  * @fmt: format specifier.
  *
  * Return: the reversed string.
-*/
+ */
 
-char *rev_fmt(void *data, FMT *fmt)
+char *rev_fmt(va_list args, FMT *fmt)
 {
-	char *s = (char *) data, *str;
+	char *s = va_arg(args, char *), *str;
 	int i, len = 0;
 	(void)fmt;
 

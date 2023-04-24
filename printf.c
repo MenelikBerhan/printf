@@ -8,37 +8,34 @@
  */
 int _printf(const char *format, ...)
 {
-	int i, j = 0, k = 0, size = BUFFER_SIZE;
+	va_list args;
 	FMT *specifiers = get_specifiers(format), *spe;
 	FMT_FUNC printer;
-	char *str, *spe_str;
-	va_list args;
+	int i, j = 0, k = 0, size = BUFFER_SIZE;
+	char *buffer = malloc(size), *str;
 
-	str = malloc(size);
 	va_start(args, format);
+	puts("starting");
 	for (i = 0; format[i]; i++)
 	{
 		if (k >= size - 1)
 		{
 			size *= 2;
-			str = realloc(str, size);
+			buffer = realloc(buffer, size);
 		}
 		if (format[i] == '%')
 		{
 			spe = &specifiers[j++];
 			printer = spe->printer;
-			spe_str = printer(va_arg(args, void *), spe);
-			strcat(str + k, spe_str);
-			k += strlen(spe_str);
-			i = spe->endidx;
-			free(spe_str);
+			str = printer(args, spe);
+			strcpy(buffer + k, str);
+			k += strlen(str);
+			i = spe->endidx - 1;
+			free(str);
 		}
 		else
-			str[k++] = format[i];
+			buffer[k++] = format[i];
 	}
 	va_end(args);
-	str[k] = '\0';
-	print_buffer(str);
-	free(str);
-	return (0);
+	return (print_buffer(buffer));
 }

@@ -3,8 +3,10 @@
 /**
  * print_buffer - prints a string using a buffer
  * @str: string to be printed
+ *
+ * Return: lenght of printed string
  */
-void print_buffer(char *str)
+int print_buffer(char *str)
 {
 	char buffer[BUFFER_SIZE];
 	int i, bytes_written, bytes_to_write, len = strlen(str);
@@ -20,5 +22,7 @@ void print_buffer(char *str)
 			exit(EXIT_FAILURE);
 		}
 	}
-	write(1, "\n", 1);
+	memset(str, '\0', len);
+	free(str);
+	return (len);
 }

@@ -7,10 +7,10 @@
  *
  * Return: The string "%" if fmt->type = "%" or empty string otherwise.
  */
-char *prcnt_fmt(void *data, FMT *fmt)
+char *prcnt_fmt(va_list args, FMT *fmt)
 {
 	char *str = malloc(sizeof(char) * 2);
-	(void)data;
+	(void)args;
 	(void)fmt;
 
 	str[0] = '%';
