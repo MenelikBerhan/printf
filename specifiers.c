@@ -10,7 +10,7 @@
  */
 int fill_fmt(const char *str, FMT *spe, int i)
 {
-	char *ex_char = "SR%";
+	char *ex_char = "SRX%";
 
 	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_char, str[i]))
 	{
