@@ -10,19 +10,17 @@
 
 char *rev_fmt(void *data, FMT *fmt)
 {
-	char *str = (char *) data, temp;
+	char *s = (char *) data, *str;
 	int i, len = 0;
 
-	for (i = 0; str[i]; i++)
+	for (i = 0; s[i]; i++)
 		len++;
 
-	for (i = 0; i < len / 2; i++)
-	{
-		temp = *(str + len - 1 - i);
+	str = malloc(sizeof(char) * (len + 1));
+	str[len] = '\0';
 
-		*(str + (len - 1 - i)) = *(str + i);
-		*(str + i) = temp;
-	}
+	for (i = 0; i < len; i++)
+		str[i] = s[len - 1 - i];
 
 	return (str);
 }
