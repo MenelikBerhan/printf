@@ -47,7 +47,7 @@ char *pointer_fmt(void *, FMT *);
 void base_convert(long, int, int, int, int *, char **);
 char *char_fmt(void *data, FMT *fmt);
 char *str_fmt(void *data, FMT *fmt);
-char *prcnt_fmt(void *data __attribute__((unused)), FMT *fmt);
+char *prcnt_fmt(void *data , FMT *fmt);
 int p_w_int(int, int, int, int, int, char, char **);
 void print_buffer(char *);
 
