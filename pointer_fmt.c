@@ -9,7 +9,7 @@
  */
 char *pointer_fmt(va_list args, FMT *fmt)
 {
-	long ptr = va_arg(args, int);
+	long ptr = va_arg(args, long);
 	int i = 1, factor;
 	char *num = malloc(i + 1);
 
