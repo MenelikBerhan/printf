@@ -42,5 +42,6 @@ char *int_fmt(void *, FMT *);
 char *printable_str(void *, FMT *);
 char *pointer_fmt(void *, FMT *);
 void base_convert(long, int, int, int, int *, char **);
+int p_w_int(int i, int dp, int width, int left, int neg, char leading, char **num);
 
 #endif /* MAIN_H */
