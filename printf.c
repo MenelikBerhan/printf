@@ -18,6 +18,11 @@ int _printf(const char *format, ...)
 		exit(-1);
 	specifiers = get_specifiers(format);
 	buffer = malloc(size);
+	if (!buffer)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{

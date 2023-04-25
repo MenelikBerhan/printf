@@ -70,11 +70,24 @@ char *str_fmt(va_list args, FMT *fmt)
 	char *s = va_arg(args, char *), *str;
 	int l_str, l_data;
 
+	if (!s)
+	{
+		if (fmt->dp != -1 && fmt->dp < 6)
+			s = "";
+		else
+			s = "(null)";
+	}
 	l_data = strlen(s);
 
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
 
 	str = malloc(sizeof(char) * (l_str + 1));
+	if (!str)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
 	str[l_str] = '\0';
 
 	str_buffer_write(s, l_data, str, l_str, fmt);

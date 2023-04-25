@@ -15,7 +15,7 @@ char *rev_fmt(va_list args, FMT *fmt)
 	(void)fmt;
 
 	s = va_arg(args, char *);
-	if (s == NULL)
+	if (s != NULL)
 	{
 		str = malloc(3);
 		strcpy(str, "%r");

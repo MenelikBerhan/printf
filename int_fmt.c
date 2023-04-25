@@ -13,6 +13,13 @@ char *int_fmt(va_list args, FMT *fmt)
 	int neg = n < 0, i = 1, width, dp;
 	char *num = malloc(i + 1);
 
+	if (!num)
+	{
+		perror("malloc2");
+		exit(EXIT_FAILURE);
+	}
+	if (!n)
+		n = 0;
 	if (neg)
 	{
 		n *= -1;
@@ -22,7 +29,7 @@ char *int_fmt(va_list args, FMT *fmt)
 	base_convert(n, 10, 0, neg, &i, &num);
 	num[i - 1] = '\0';
 	dp = (i - 1) < fmt->dp;
-	width = (i - 1 < fmt->width);
+	width = (i - 1) < fmt->width;
 	i = p_w_int(i, neg, fmt, &num);
 	if ((fmt->p_plus || fmt->i_plus) && !neg)
 	{

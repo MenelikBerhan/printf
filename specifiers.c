@@ -90,6 +90,11 @@ FMT *get_specifiers(const char *str)
 	int i = 0, j = 0;
 	FMT *specifiers = malloc(sizeof(FMT) * (j + 1)), *spe;
 
+	if (!specifiers)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	while (str[i])
 	{
 		if (str[i] == '%')

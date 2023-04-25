@@ -13,6 +13,14 @@ char *sign_int_fmt(va_list args, FMT *fmt)
 	int i = 1;
 	char *num = malloc(i + 1);
 
+	if (!num)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
+	if (!n)
+		n = 0;
 	base_convert(n, 10, 0, 0, &i, &num);
 	num[i - 1] = '\0';
 	i = p_w_int(i, 0, fmt, &num);
