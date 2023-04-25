@@ -10,10 +10,14 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int i, j = 0, k = 0, size = BUFFER_SIZE;
-	FMT *specifiers = get_specifiers(format), *spe;
+	FMT *specifiers, *spe;
 	FMT_FUNC printer;
-	char *buffer = malloc(size);
+	char *buffer;
 
+	if (!format)
+		exit(-1);
+	specifiers = get_specifiers(format);
+	buffer = malloc(size);
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{

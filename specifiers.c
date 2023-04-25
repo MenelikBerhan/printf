@@ -94,6 +94,8 @@ FMT *get_specifiers(const char *str)
 	{
 		if (str[i] == '%')
 		{
+			if (!str[i + 1])
+				exit(-1);
 			specifiers = realloc(specifiers, (sizeof(FMT) * (j + 1)));
 			spe = &specifiers[j];
 			i++;

@@ -15,6 +15,13 @@ char *rev_fmt(va_list args, FMT *fmt)
 	(void)fmt;
 
 	s = va_arg(args, char *);
+	if (s == NULL)
+	{
+		str = malloc(3);
+		strcpy(str, "%r");
+		str[2] = '\0';
+		return (str);
+	}
 	for (i = 0; s[i]; i++)
 		len++;
 

@@ -13,8 +13,14 @@ char *char_fmt(va_list args, FMT *fmt)
 	char ch = va_arg(args, int), *str;
 	int len, i;
 
+	if (ch < 0)
+	{
+		str = malloc(3);
+		strcpy(str, "%c");
+		str[2] = '\0';
+		return (str);
+	}
 	len = fmt->width ? fmt->width : 1;
-
 	str = malloc(sizeof(char) * (len + 1));
 	str[len] = '\0';
 	if (!fmt->width)
