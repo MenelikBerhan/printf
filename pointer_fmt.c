@@ -10,8 +10,14 @@
 char *pointer_fmt(va_list args, FMT *fmt)
 {
 	long ptr = va_arg(args, long);
-	int i = 1, factor;
-	char *num = malloc(i + 1);
+	int i = 1, factor, j;
+	char *num = malloc(i + 1), nil[] = "(nil)";
+
+	if (!num)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 
 	base_convert(ptr, 16, 0, 0, &i, &num);
 	num[i] = '\0';
@@ -20,6 +26,13 @@ char *pointer_fmt(va_list args, FMT *fmt)
 	_memmove(&num[2], &num[0], i + 1);
 	num[0] = '0';
 	num[1] = 'x';
+	if (!ptr)
+	{
+		num = _realloc(num, 6);
+		for (j = 0; j <= 6; j++)
+			num[j] = nil[j];
+		i = 6;
+	}
 	if (i < fmt->width)
 	{
 		num = _realloc(num, (sizeof(char) * (fmt->width + 1)));

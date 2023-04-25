@@ -14,6 +14,11 @@ int _printf(const char *format, ...)
 	FMT_FUNC printer;
 	char *buffer = malloc(size);
 
+	if (!buffer)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{
