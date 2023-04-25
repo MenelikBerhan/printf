@@ -15,7 +15,7 @@ int _printf(const char *format, ...)
 	char *buffer, *str;
 
 	if (!format)
-		exit(-1);
+		return (-1);
 	specifiers = get_specifiers(format);
 	buffer = malloc(size);
 	if (!buffer)
