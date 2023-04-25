@@ -13,6 +13,14 @@ char *int_fmt(va_list args, FMT *fmt)
 	int neg = n < 0, i = 1, width, dp;
 	char *num = malloc(i + 1);
 
+	if (!num)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
+	if (!n)
+		n = 0;
 	if (neg)
 	{
 		n *= -1;
