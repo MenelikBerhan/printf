@@ -77,6 +77,12 @@ char *str_fmt(va_list args, FMT *fmt)
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
 
 	str = malloc(sizeof(char) * (l_str + 1));
+	if (!str)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
 	str[l_str] = '\0';
 
 	str_buffer_write(s, l_data, str, l_str, fmt);
