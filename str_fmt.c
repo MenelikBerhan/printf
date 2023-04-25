@@ -67,9 +67,17 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
  */
 char *str_fmt(va_list args, FMT *fmt)
 {
-	char *s = va_arg(args, char *), *str;
+	char *s, *str;
 	int l_str, l_data;
 
+	s = va_arg(args, char *);
+	if ((unsigned long)args <= (unsigned long)s)
+	{
+		str = malloc(3);
+		strcpy(str, "%s");
+		str[2] = '\0';
+		return (str);
+	}
 	if (!s)
 	{
 		if (fmt->dp != -1 && fmt->dp < 6)
