@@ -13,6 +13,11 @@ char *prcnt_fmt(va_list args, FMT *fmt)
 	(void)args;
 	(void)fmt;
 
+	if (!str)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	str[0] = '%';
 	str[1] = '\0';
 	return (str);
