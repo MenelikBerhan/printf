@@ -38,5 +38,6 @@ int _printf(const char *format, ...)
 			buffer[k++] = format[i];
 	}
 	va_end(args);
+	free(specifiers);
 	return (print_buffer(buffer));
 }
