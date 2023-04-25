@@ -70,6 +70,8 @@ char *str_fmt(va_list args, FMT *fmt)
 	char *s = va_arg(args, char *), *str;
 	int l_str, l_data;
 
+	if (!s)
+		s = "(null)";
 	l_data = _strlen(s);
 
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
