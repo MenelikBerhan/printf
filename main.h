@@ -58,12 +58,5 @@ char *bin_fmt(va_list args, FMT *fmt);
 void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 int print_buffer(char *str);
-void *_realloc(void *ptr, unsigned int size);
-char *_memmove(char *dest, char *src, int n);
-char *_memcpy(char *dest, char *src, int n);
-char *_memset(char *s, char b, unsigned int n);
-char *_strchr(char *s, char c);
-char *_strcpy(char *dest, char *src);
-int _strlen(char *s);
 
 #endif /* MAIN_H */

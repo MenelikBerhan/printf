@@ -12,7 +12,7 @@ int _printf(const char *format, ...)
 	int i, j = 0, k = 0, size = BUFFER_SIZE;
 	FMT *specifiers, *spe;
 	FMT_FUNC printer;
-	char *buffer;
+	char *buffer, *str;
 
 	if (!format)
 		exit(-1);
@@ -33,8 +33,6 @@ int _printf(const char *format, ...)
 		}
 		if (format[i] == '%')
 		{
-			char *str;
-
 			spe = &specifiers[j++];
 			printer = spe->printer;
 			str = printer(args, spe);
