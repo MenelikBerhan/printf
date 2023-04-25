@@ -9,12 +9,12 @@
 int print_buffer(char *str)
 {
 	char buffer[BUFFER_SIZE];
-	int i, bytes_written, bytes_to_write, len = strlen(str);
+	int i, bytes_written, bytes_to_write, len = _strlen(str);
 
 	for (i = 0; i < len; i += BUFFER_SIZE)
 	{
 		bytes_to_write = (i + BUFFER_SIZE < len) ? BUFFER_SIZE : len - i;
-		memcpy(buffer, str + i, bytes_to_write);
+		_memcpy(buffer, str + i, bytes_to_write);
 		bytes_written = write(1, buffer, bytes_to_write);
 		if (bytes_written != bytes_to_write)
 		{
@@ -22,7 +22,7 @@ int print_buffer(char *str)
 			exit(EXIT_FAILURE);
 		}
 	}
-	memset(str, '\0', len);
+	_memset(str, '\0', len);
 	free(str);
 	return (len);
 }

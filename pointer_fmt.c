@@ -16,18 +16,18 @@ char *pointer_fmt(va_list args, FMT *fmt)
 	base_convert(ptr, 16, 0, 0, &i, &num);
 	num[i] = '\0';
 	i += 2;
-	num = realloc(num, i + 1);
-	memmove(&num[2], &num[0], i + 1);
+	num = _realloc(num, i + 1);
+	_memmove(&num[2], &num[0], i + 1);
 	num[0] = '0';
 	num[1] = 'x';
 	if (i < fmt->width)
 	{
-		num = realloc(num, (sizeof(char) * (fmt->width + 1)));
+		num = _realloc(num, (sizeof(char) * (fmt->width + 1)));
 		if (!fmt->left)
 		{
 			factor = fmt->width - i + 1;
-			memmove(&num[factor], &num[0], i);
-			memset(num, fmt->leading, factor);
+			_memmove(&num[factor], &num[0], i);
+			_memset(num, fmt->leading, factor);
 		}
 		else
 			for (; i <= fmt->width; i++)

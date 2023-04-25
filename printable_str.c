@@ -10,7 +10,7 @@
 char *printable_str(va_list args, FMT *fmt)
 {
 	char *s = va_arg(args, char *);
-	int len = strlen(s);
+	int len = _strlen(s);
 	char *str = malloc(len * 4 + 1);
 	int i, j = 0;
 	(void)fmt;

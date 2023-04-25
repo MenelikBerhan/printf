@@ -16,7 +16,7 @@ void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res)
 	char *hex = "0123456789abcdef";
 	char *hex_caps = "0123456789ABCDEF";
 
-	*res = realloc(*res, (j + 1));
+	*res = _realloc(*res, (j + 1));
 	num /= base;
 	if (num != 0)
 		base_convert(num, base, hex_cap, neg, i, res);
