@@ -16,12 +16,26 @@ char *rot13_fmt(va_list args, FMT *fmt)
 	int i, j, len = 0;
 	(void)fmt;
 
-	for (i = 0; s[i]; i++)
-		len++;
-
+	if (s)
+	{
+		for (i = 0; s[i]; i++)
+			len++;
+	}
+	else
+		len = 2;
 	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	str[len] = '\0';
-
+	if (!s)
+	{
+		str[0] = '%';
+		str[1] = 'R';
+		return (str);
+	}
 	for (i = 0; s[i]; i++)
 	{
 		for (j = 0; j < 52; j++)
