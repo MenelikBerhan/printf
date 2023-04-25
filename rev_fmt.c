@@ -10,10 +10,11 @@
 
 char *rev_fmt(va_list args, FMT *fmt)
 {
-	char *s = va_arg(args, char *), *str;
+	char *s, *str;
 	int i, len = 0;
 	(void)fmt;
 
+	s = va_arg(args, char *);
 	for (i = 0; s[i]; i++)
 		len++;
 

@@ -24,10 +24,10 @@ int fill_fmt(const char *str, FMT *spe, int i)
 			spe->dp = 0;
 		else if (str[i] == '0')
 		{
-			if (spe->width == 0 && !spe->left)
-				spe->leading = '0';
-			else if (spe->dp != -1)
+			if (spe->dp != -1)
 				spe->dp *= 10;
+			else if (spe->width == 0 && !spe->left)
+				spe->leading = '0';
 			else
 				spe->width *= 10;
 		}
