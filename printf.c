@@ -8,7 +8,7 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list args = NULL;
+	va_list args;
 	int i, j = 0, k = 0, size = BUFFER_SIZE;
 	FMT *specifiers = get_specifiers(format), *spe;
 	FMT_FUNC printer;
