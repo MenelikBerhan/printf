@@ -16,6 +16,11 @@ char *char_fmt(va_list args, FMT *fmt)
 	len = fmt->width ? fmt->width : 1;
 
 	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	str[len] = '\0';
 	if (!fmt->width)
 	{
