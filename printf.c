@@ -8,11 +8,11 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
+	va_list args = NULL;
 	int i, j = 0, k = 0, size = BUFFER_SIZE;
 	FMT *specifiers = get_specifiers(format), *spe;
 	FMT_FUNC printer;
-	char *buffer = malloc(size), *str;
+	char *buffer = malloc(size);
 
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
@@ -24,6 +24,8 @@ int _printf(const char *format, ...)
 		}
 		if (format[i] == '%')
 		{
+			char *str;
+
 			spe = &specifiers[j++];
 			printer = spe->printer;
 			str = printer(args, spe);
