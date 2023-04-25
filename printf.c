@@ -20,7 +20,7 @@ int _printf(const char *format, ...)
 		if (k >= size - 1)
 		{
 			size *= 2;
-			buffer = _realloc(buffer, size);
+			buffer = realloc(buffer, size);
 		}
 		if (format[i] == '%')
 		{
@@ -29,8 +29,8 @@ int _printf(const char *format, ...)
 			spe = &specifiers[j++];
 			printer = spe->printer;
 			str = printer(args, spe);
-			_strcpy(buffer + k, str);
-			k += _strlen(str);
+			strcpy(buffer + k, str);
+			k += strlen(str);
 			i = spe->endidx - 1;
 			free(str);
 		}

@@ -19,9 +19,9 @@ char *sign_int_fmt(va_list args, FMT *fmt)
 	if ((fmt->p_plus || fmt->i_plus))
 	{
 		i = (i >= fmt->width) ? i : fmt->width;
-		num = _realloc(num, i + 1);
+		num = realloc(num, i + 1);
 		if (i > fmt->width || fmt->left)
-			_memmove(&num[1], &num[0], fmt->left ? --i : i);
+			memmove(&num[1], &num[0], fmt->left ? --i : i);
 		num[0] = (fmt->i_plus) ? ' ' : '+';
 	}
 	return (num);

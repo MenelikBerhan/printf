@@ -12,7 +12,7 @@ int fill_fmt(const char *str, FMT *spe, int i)
 {
 	char *ex_char = "SRX%";
 
-	while ((str[i] < 'a' || str[i] > 'z') && !_strchr(ex_char, str[i]))
+	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_char, str[i]))
 	{
 		if (str[i] == '+')
 			spe->p_plus = 1;
@@ -94,7 +94,7 @@ FMT *get_specifiers(const char *str)
 	{
 		if (str[i] == '%')
 		{
-			specifiers = _realloc(specifiers, (sizeof(FMT) * (j + 1)));
+			specifiers = realloc(specifiers, (sizeof(FMT) * (j + 1)));
 			spe = &specifiers[j];
 			i++;
 			spe->width = 0;
