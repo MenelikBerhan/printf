@@ -10,7 +10,7 @@
 
 char *char_fmt(va_list args, FMT *fmt)
 {
-	unsigned char ch = va_arg(args, unsigned int), *str;
+	char ch = va_arg(args, unsigned int), *str;
 	int len, i;
 
 	if (ch < 0)
