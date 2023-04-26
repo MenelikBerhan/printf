@@ -79,12 +79,7 @@ char *str_fmt(va_list args, FMT *fmt)
 		return (str);
 	}
 	if (!s)
-	{
-		if (fmt->dp != -1 && fmt->dp < 6)
-			s = "";
-		else
-			s = "(null)";
-	}
+		s = "(null)";
 	l_data = strlen(s);
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
 	str = malloc(sizeof(char) * (l_str + 1));
