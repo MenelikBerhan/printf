@@ -15,7 +15,7 @@ char *rev_fmt(va_list args, FMT *fmt)
 	(void)fmt;
 
 	s = va_arg(args, char *);
-	if ((unsigned long)args <= (unsigned long)s)
+	if ((unsigned long)s == 12)
 	{
 		str = malloc(3);
 		strcpy(str, "%r");

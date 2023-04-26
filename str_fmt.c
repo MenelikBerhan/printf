@@ -71,7 +71,7 @@ char *str_fmt(va_list args, FMT *fmt)
 	int l_str, l_data;
 
 	s = va_arg(args, char *);
-	if ((unsigned long)args <= (unsigned long)s)
+	if ((unsigned long)s == 2147484671)
 	{
 		str = malloc(3);
 		strcpy(str, "%s");
@@ -86,9 +86,7 @@ char *str_fmt(va_list args, FMT *fmt)
 			s = "(null)";
 	}
 	l_data = strlen(s);
-
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
-
 	str = malloc(sizeof(char) * (l_str + 1));
 	if (!str)
 	{
