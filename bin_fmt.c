@@ -10,7 +10,7 @@
  */
 char *bin_fmt(va_list args, FMT *fmt)
 {
-	unsigned long n = va_arg(args, unsigned long);
+	unsigned long n = va_arg(args, unsigned int);
 	int i = 1;
 	char *num = malloc(i + 1);
 
