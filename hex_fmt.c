@@ -10,7 +10,7 @@
  */
 char *hex_fmt(va_list args, FMT *fmt)
 {
-	long n = va_arg(args, int);
+	unsigned long n = va_arg(args, unsigned int);
 	int i = 1, hex_cap = fmt->type == 'X';
 	char *num = malloc(i + 1);
 
