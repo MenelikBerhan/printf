@@ -18,11 +18,6 @@ int _printf(const char *format, ...)
 		return (-1);
 	specifiers = get_specifiers(format);
 	buffer = malloc(size);
-	if (!buffer)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
 	va_start(args, format);
 	for (i = 0; format[i]; i++)
 	{
@@ -34,6 +29,12 @@ int _printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			spe = &specifiers[j++];
+			if (spe->type == 'n')
+			{
+				free(specifiers);
+				print_buffer(buffer);
+				return (-1);
+			}
 			printer = spe->printer;
 			str = printer(args, spe);
 			strcpy(buffer + k, str);

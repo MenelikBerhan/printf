@@ -90,17 +90,10 @@ FMT *get_specifiers(const char *str)
 	int i = 0, j = 0;
 	FMT *specifiers = malloc(sizeof(FMT) * (j + 1)), *spe;
 
-	if (!specifiers)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			if (!str[i + 1])
-				exit(-1);
 			specifiers = realloc(specifiers, (sizeof(FMT) * (j + 1)));
 			spe = &specifiers[j];
 			i++;
@@ -111,6 +104,14 @@ FMT *get_specifiers(const char *str)
 			spe->p_plus = 0;
 			spe->leading = ' ';
 			spe->base_prefix = 0;
+			if (!str[i])
+			{
+				spe->ex_type = '\0';
+				spe->type = 'n';
+				spe->endidx = i;
+				j++;
+				return (specifiers);
+			}
 
 			i = fill_fmt(str, spe, i);
 
