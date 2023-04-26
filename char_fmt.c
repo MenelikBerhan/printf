@@ -8,44 +8,46 @@
  * Return: The formatted string.
  */
 
-char *char_fmt(va_list args, FMT *fmt)
+String char_fmt(va_list *args, FMT *fmt)
 {
-	char ch = va_arg(args, unsigned int), *str;
+	String str;
+	char ch = va_arg(*args, unsigned int);
 	int len, i;
 
-	if (ch < 0)
+	if (ch < 0 || !ch)
 	{
-		str = malloc(3);
-		strcpy(str, "%c");
-		str[2] = '\0';
+		len = !ch ? 1 : 2;
+		str.s = malloc(len + 1);
+		strcpy(str.s, !ch ? "\0" : "%c");
+		str.s[len] = '\0';
+		str.len = len;
 		return (str);
 	}
 	len = fmt->width ? fmt->width : 1;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
+	str.len = len;
+	str.s = malloc(sizeof(char) * (len + 1));
+	if (!str.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	str[len] = '\0';
+	str.s[len] = '\0';
 	if (!fmt->width)
 	{
-		str[0] = ch;
+		str.s[0] = ch;
 		return (str);
 	}
-
 	if (fmt->left)
 	{
-		str[0] = ch;
+		str.s[0] = ch;
 		for (i = 1; i < len; i++)
-			str[i] = ' ';
+			str.s[i] = ' ';
 	}
 	else
 	{
-		str[len - 1] = ch;
+		str.s[len - 1] = ch;
 		for (i = 0; i < len - 1; i++)
-			str[i] = ' ';
+			str.s[i] = ' ';
 	}
-
 	return (str);
 }

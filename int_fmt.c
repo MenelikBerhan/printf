@@ -7,13 +7,14 @@
  *
  * Return: the string
  */
-char *int_fmt(va_list args, FMT *fmt)
+String int_fmt(va_list *args, FMT *fmt)
 {
-	long n = va_arg(args, int);
+	String num;
+	long n = va_arg(*args, int);
 	int neg = n < 0, i = 1, width, dp;
-	char *num = malloc(i + 1);
 
-	if (!num)
+	num.s = malloc(i + 1);
+	if (!num.s)
 	{
 		perror("malloc2");
 		exit(EXIT_FAILURE);
@@ -23,21 +24,22 @@ char *int_fmt(va_list args, FMT *fmt)
 	if (neg)
 	{
 		n *= -1;
-		num[0] = '-';
+		num.s[0] = '-';
 		i++;
 	}
-	base_convert(n, 10, 0, neg, &i, &num);
-	num[i - 1] = '\0';
+	base_convert(n, 10, 0, neg, &i, &num.s);
+	num.s[i - 1] = '\0';
 	dp = (i - 1) < fmt->dp;
 	width = (i - 1) < fmt->width;
-	i = p_w_int(i, neg, fmt, &num);
+	i = p_w_int(i, neg, fmt, &num.s);
 	if ((fmt->p_plus || fmt->i_plus) && !neg)
 	{
 		i = (i >= fmt->width) ? i : fmt->width;
-		num = realloc(num, i + 1);
+		num.s = realloc(num.s, i + 1);
 		if (i > fmt->width || fmt->left)
-			memmove(&num[1], &num[0], fmt->left ? --i : i);
-		num[0] = (fmt->i_plus || dp || width) ? ' ' : '+';
+			memmove(&num.s[1], &num.s[0], fmt->left ? --i : i);
+		num.s[0] = (fmt->i_plus || dp || width) ? ' ' : '+';
 	}
+	num.len = strlen(num.s);
 	return (num);
 }

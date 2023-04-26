@@ -8,32 +8,32 @@
  * Return: the rot13'ed string.
  */
 
-char *rot13_fmt(va_list args, FMT *fmt)
+String rot13_fmt(va_list *args, FMT *fmt)
 {
+	String str;
 	char *c_i = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char *c_o = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	char *s = va_arg(args, char *), *str;
+	char *s = va_arg(*args, char *);
 	int i, j, len = 0;
 	(void)fmt;
 
 	if (s)
-	{
 		for (i = 0; s[i]; i++)
 			len++;
-	}
 	else
 		len = 2;
-	str = malloc(sizeof(char) * (len + 1));
-	if (!str)
+	str.s = malloc(sizeof(char) * (len + 1));
+	str.len = len;
+	if (!str.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	str[len] = '\0';
+	str.s[len] = '\0';
 	if (!s)
 	{
-		str[0] = '%';
-		str[1] = 'R';
+		str.s[0] = '%';
+		str.s[1] = 'R';
 		return (str);
 	}
 	for (i = 0; s[i]; i++)
@@ -42,12 +42,12 @@ char *rot13_fmt(va_list args, FMT *fmt)
 		{
 			if (s[i] == c_i[j])
 			{
-				str[i] = c_o[j];
+				str.s[i] = c_o[j];
 				break;
 			}
 		}
 		if (j == 52)
-			str[i] = s[i];
+			str.s[i] = s[i];
 	}
 	return (str);
 }

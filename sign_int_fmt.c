@@ -7,30 +7,31 @@
  *
  * Return: the string
  */
-char *sign_int_fmt(va_list args, FMT *fmt)
+String sign_int_fmt(va_list *args, FMT *fmt)
 {
-	unsigned long n = va_arg(args, unsigned int);
+	String num;
+	unsigned long n = va_arg(*args, unsigned int);
 	int i = 1;
-	char *num = malloc(i + 1);
 
-	if (!num)
+	num.s = malloc(i + 1);
+	if (!num.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-
 	if (!n)
 		n = 0;
-	base_convert(n, 10, 0, 0, &i, &num);
-	num[i - 1] = '\0';
-	i = p_w_int(i, 0, fmt, &num);
+	base_convert(n, 10, 0, 0, &i, &num.s);
+	num.s[i - 1] = '\0';
+	i = p_w_int(i, 0, fmt, &num.s);
 	if ((fmt->p_plus || fmt->i_plus))
 	{
 		i = (i >= fmt->width) ? i : fmt->width;
-		num = realloc(num, i + 1);
+		num.s = realloc(num.s, i + 1);
 		if (i > fmt->width || fmt->left)
-			memmove(&num[1], &num[0], fmt->left ? --i : i);
-		num[0] = (fmt->i_plus) ? ' ' : '+';
+			memmove(&num.s[1], &num.s[0], fmt->left ? --i : i);
+		num.s[0] = (fmt->i_plus) ? ' ' : '+';
 	}
+	num.len = strlen(num.s);
 	return (num);
 }

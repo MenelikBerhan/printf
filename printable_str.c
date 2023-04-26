@@ -7,20 +7,18 @@
  *
  * Return: the string
  */
-char *printable_str(va_list args, FMT *fmt)
+String printable_str(va_list *args, FMT *fmt)
 {
-	char *s = va_arg(args, char *);
-	int len;
-	char *str;
-	int i, j = 0;
+	String str;
+	char *s = va_arg(*args, char *);
+	int len, i, j = 0;
 	(void)fmt;
 
 	if (!s)
 		s = "";
-
 	len = strlen(s);
-	str = malloc(len * 4 + 1);
-	if (!str)
+	str.s = malloc(len * 4 + 1);
+	if (!str.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
@@ -29,17 +27,17 @@ char *printable_str(va_list args, FMT *fmt)
 	{
 		if (s[i] < 32 || s[i] >= 127)
 		{
-			str[j++] = '\\';
-			str[j++] = 'x';
-			str[j++] = "0123456789ABCDEF"[(unsigned char)s[i] >> 4];
-			str[j++] = "0123456789ABCDEF"[(unsigned char)s[i] & 0x0F];
+			str.s[j++] = '\\';
+			str.s[j++] = 'x';
+			str.s[j++] = "0123456789ABCDEF"[(unsigned char)s[i] >> 4];
+			str.s[j++] = "0123456789ABCDEF"[(unsigned char)s[i] & 0x0F];
 		}
 		else
 		{
-			str[j++] = s[i];
+			str.s[j++] = s[i];
 		}
 	}
-	str[j] = '\0';
-
+	str.s[j] = '\0';
+	str.len = strlen(str.s);
 	return (str);
 }

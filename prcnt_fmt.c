@@ -7,18 +7,20 @@
  *
  * Return: The string "%" if fmt->type = "%" or empty string otherwise.
  */
-char *prcnt_fmt(va_list args, FMT *fmt)
+String prcnt_fmt(va_list *args, FMT *fmt)
 {
-	char *str = malloc(sizeof(char) * 2);
+	String str;
 	(void)args;
 	(void)fmt;
 
-	if (!str)
+	str.s = malloc(sizeof(char) * 2);
+	if (!str.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	str[0] = '%';
-	str[1] = '\0';
+	str.s[0] = '%';
+	str.s[1] = '\0';
+	str.len = 1;
 	return (str);
 }

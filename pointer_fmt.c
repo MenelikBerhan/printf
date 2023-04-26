@@ -7,45 +7,46 @@
  *
  * Return: the string
  */
-char *pointer_fmt(va_list args, FMT *fmt)
+String pointer_fmt(va_list *args, FMT *fmt)
 {
-	long ptr = va_arg(args, long);
-	int i = 1, factor, j;
-	char *num = malloc(i + 1), nil[] = "(nil)";
+	String num;
+	long ptr = va_arg(*args, long);
+	int i = 1, factor;
+	char nil[] = "(nil)";
 
-	if (!num)
+	num.s = malloc(i + 1);
+	if (!num.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-
-	base_convert(ptr, 16, 0, 0, &i, &num);
-	num[i] = '\0';
+	base_convert(ptr, 16, 0, 0, &i, &num.s);
+	num.s[i] = '\0';
 	i += 2;
-	num = realloc(num, i + 1);
-	memmove(&num[2], &num[0], i + 1);
-	num[0] = '0';
-	num[1] = 'x';
+	num.s = realloc(num.s, i + 1);
+	memmove(&num.s[2], &num.s[0], i + 1);
+	num.s[0] = '0';
+	num.s[1] = 'x';
 	if (!ptr)
 	{
-		num = realloc(num, 6);
-		for (j = 0; j <= 6; j++)
-			num[j] = nil[j];
+		num.s = realloc(num.s, 6);
+		strcpy(num.s, nil);
 		i = 6;
 	}
 	if (i < fmt->width)
 	{
-		num = realloc(num, (sizeof(char) * (fmt->width + 1)));
+		num.s = realloc(num.s, (sizeof(char) * (fmt->width + 1)));
 		if (!fmt->left)
 		{
 			factor = fmt->width - i + 1;
-			memmove(&num[factor], &num[0], i);
-			memset(num, fmt->leading, factor);
+			memmove(&num.s[factor], &num.s[0], i);
+			memset(num.s, fmt->leading, factor);
 		}
 		else
 			for (; i <= fmt->width; i++)
-				num[i - 1] = ' ';
-		num[fmt->width] = '\0';
+				num.s[i - 1] = ' ';
+		num.s[fmt->width] = '\0';
 	}
+	num.len = strlen(num.s);
 	return (num);
 }

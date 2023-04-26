@@ -8,19 +8,21 @@
  *
  * Return: the string
  */
-char *hex_fmt(va_list args, FMT *fmt)
+String hex_fmt(va_list *args, FMT *fmt)
 {
-	unsigned long n = va_arg(args, unsigned int);
+	String num;
+	unsigned long n = va_arg(*args, unsigned int);
 	int i = 1, hex_cap = fmt->type == 'X';
-	char *num = malloc(i + 1);
 
-	if (!num)
+	num.s = malloc(i + 1);
+	if (!num.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	base_convert(n, 16, hex_cap, 0, &i, &num);
-	num[i - 1] = '\0';
-	i = p_w_int(i, 0, fmt, &num);
+	base_convert(n, 16, hex_cap, 0, &i, &num.s);
+	num.s[i - 1] = '\0';
+	i = p_w_int(i, 0, fmt, &num.s);
+	num.len = strlen(num.s);
 	return (num);
 }

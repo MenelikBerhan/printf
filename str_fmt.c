@@ -65,33 +65,33 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
  *
  * Return: The formatted string.
  */
-char *str_fmt(va_list args, FMT *fmt)
+String str_fmt(va_list *args, FMT *fmt)
 {
-	char *s, *str;
+	String str;
+	char *s = va_arg(*args, char *);
 	int l_str, l_data;
 
-	s = va_arg(args, char *);
 	if ((unsigned long)s == 2147484671)
 	{
-		str = malloc(3);
-		strcpy(str, "%s");
-		str[2] = '\0';
+		l_str = 2;
+		str.s = malloc(l_str + 1);
+		strcpy(str.s, "%s");
+		str.s[l_str] = '\0';
+		str.len = l_str;
 		return (str);
 	}
 	if (!s)
 		s = "(null)";
 	l_data = strlen(s);
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
-	str = malloc(sizeof(char) * (l_str + 1));
-	if (!str)
+	str.s = malloc(sizeof(char) * (l_str + 1));
+	if (!str.s)
 	{
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-
-	str[l_str] = '\0';
-
-	str_buffer_write(s, l_data, str, l_str, fmt);
-
+	str.s[l_str] = '\0';
+	str.len = l_str;
+	str_buffer_write(s, l_data, str.s, l_str, fmt);
 	return (str);
 }

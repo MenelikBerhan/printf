@@ -77,6 +77,8 @@ void assign_printer(FMT *spe)
 		spe->printer = rev_fmt;
 	else if (t == 'R')
 		spe->printer = rot13_fmt;
+	else
+		spe->printer = NULL;
 }
 
 /**
@@ -99,11 +101,9 @@ FMT *get_specifiers(const char *str)
 	{
 		if (str[i] == '%')
 		{
-			if (!str[i + 1])
-				exit(-1);
 			specifiers = realloc(specifiers, (sizeof(FMT) * (j + 1)));
 			spe = &specifiers[j];
-			i++;
+			++i;
 			spe->width = 0;
 			spe->left = 0;
 			spe->dp = -1;
