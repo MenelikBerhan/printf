@@ -84,7 +84,7 @@ String oct_fmt(va_list *args, FMT *fmt);
 String bin_fmt(va_list *args, FMT *fmt);
 Int int_type(va_list *args, FMT *fmt);
 uint64_t sign_int_type(va_list *args, FMT *fmt);
-void base_convert(unsigned long n, int base, int hex_cap, int neg, int *i, char **res);
+void base_convert(unsigned long, int, int, int, int *, char **);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 void print_buffer(char *str);
 
