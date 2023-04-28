@@ -23,6 +23,19 @@ typedef struct str_fmt
 } String;
 
 /**
+ * struct int_fmt - struct for a string and it's length
+ * @n: the int
+ * @neg: is @n < 0
+ *
+ * Description: This struct holds an integer and it's sign
+ */
+typedef struct int_fmt
+{
+	unsigned long n;
+	int neg;
+} Int;
+
+/**
  * struct fmt - struct for format specifiers details
  * @type: data type of specifier
  * @ex_type: supporting type for ints (long or short)
@@ -69,7 +82,9 @@ String rev_fmt(va_list *args, FMT *fmt);
 String rot13_fmt(va_list *args, FMT *fmt);
 String oct_fmt(va_list *args, FMT *fmt);
 String bin_fmt(va_list *args, FMT *fmt);
-void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
+Int int_type(va_list *args, FMT *fmt);
+uint64_t sign_int_type(va_list *args, FMT *fmt);
+void base_convert(unsigned long n, int base, int hex_cap, int neg, int *i, char **res);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 void print_buffer(char *str);
 

@@ -9,9 +9,9 @@
  * @i: no of recursive calls
  * @res: buffer to store the string
  */
-void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res)
+void base_convert(unsigned long n, int base, int hex_cap, int neg, int *i, char **res)
 {
-	long num = n;
+	unsigned long num = n;
 	int j = (*i)++, k;
 	char *hex = "0123456789abcdef";
 	char *hex_caps = "0123456789ABCDEF";

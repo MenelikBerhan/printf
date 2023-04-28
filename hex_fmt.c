@@ -11,7 +11,7 @@
 String hex_fmt(va_list *args, FMT *fmt)
 {
 	String num;
-	unsigned long n = va_arg(*args, unsigned int);
+	unsigned long n = sign_int_type(args, fmt);
 	int i = 1, hex_cap = fmt->type == 'X';
 
 	num.s = malloc(i + 1);

@@ -33,7 +33,7 @@ int _printf(const char *format, ...)
 	FMT *specifiers, *spe;
 	FMT_FUNC printer;
 	String str;
-	char buffer[BUFFER_SIZE] = "\0";
+	char buffer[BUFFER_SIZE] = "\0", exspe[] = "lh";
 
 	if (!format)
 		return (-1);
@@ -48,7 +48,7 @@ int _printf(const char *format, ...)
 			printer = spe->printer;
 			if (!printer)
 			{
-				buffer[k++] = format[i];
+				buffer[k++] = format[strchr(exspe, format[i + 1]) ? i++ : i];
 				continue;
 			}
 			str = printer(&args, spe);
