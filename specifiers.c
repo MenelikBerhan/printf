@@ -33,6 +33,13 @@ int fill_fmt(const char *str, FMT *spe, int i)
 		}
 		else if (str[i] == '#')
 			spe->base_prefix = 1;
+		else if (str[i] == '*')
+		{
+			if (spe->dp != -1)
+				spe->dp = -2;
+			else
+				spe->width = -2;
+		}
 		else if (str[i] > '0' && str[i] <= '9')
 		{
 			if (spe->dp == -1)
