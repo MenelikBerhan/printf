@@ -66,7 +66,7 @@ int p_w_int(int i, int n, FMT *fmt, char **num)
 			(*num)[0] = n ? '-' : '+';
 		i = fmt->dp + mn;
 	}
-	if (fmt->base_prefix && !(fmt->type == 'o' && dp))
+	if (fmt->base_prefix && !(fmt->type == 'o' && dp) && (*num)[0] != '0')
 	{
 		i += fmt->type == 'o' ? 1 : 2;
 		*num = realloc(*num, i + 1);

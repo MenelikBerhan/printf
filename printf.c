@@ -48,7 +48,10 @@ int _printf(const char *format, ...)
 			printer = spe->printer;
 			if (!printer)
 			{
-				buffer[k++] = format[strchr(exspe, format[i + 1]) ? i++ : i];
+				if (format[i + 1] == ' ')
+					buffer[k++] = format[i += 2];
+				else
+					buffer[k++] = format[strchr(exspe, format[i + 1]) ? i++ : i];
 				continue;
 			}
 			str = printer(&args, spe);

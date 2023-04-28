@@ -37,7 +37,7 @@ String int_fmt(va_list *args, FMT *fmt)
 		num.s = realloc(num.s, i + 1);
 		if (i > fmt->width || fmt->left)
 			memmove(&num.s[1], &num.s[0], fmt->left ? --i : i);
-		num.s[0] = (fmt->i_plus || dp || width) ? ' ' : '+';
+		num.s[0] = ((fmt->i_plus || dp || width) && !fmt->p_plus) ? ' ' : '+';
 	}
 	num.len = strlen(num.s);
 	return (num);
