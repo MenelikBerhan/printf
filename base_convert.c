@@ -11,7 +11,7 @@
  */
 void base_convert(unsigned long n, int b, int cap, int neg, int *i, char **r)
 {
-	long num = n;
+	unsigned long num = n;
 	int j = (*i)++, k;
 	char *hex = "0123456789abcdef";
 	char *hex_caps = "0123456789ABCDEF";
