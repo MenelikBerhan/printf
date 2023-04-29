@@ -65,7 +65,9 @@ int _printf(const char *format, ...)
 			printer = spe->printer;
 			if (!printer)
 			{
-				buffer[k++] = format[i];
+				buffer[k++] = '%';
+				if (spe->ex_type)
+					buffer[k++] = spe->ex_type;
 				continue;
 			}
 			str = printer(&args, spe);
