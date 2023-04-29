@@ -51,7 +51,7 @@ String char_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	ch = va_arg(*args, unsigned int);
-	if (ch < 0 || !ch)
+	if (ch < 0)
 	{
 		len = !ch ? 1 : 2;
 		str.s = malloc(len + 1);
