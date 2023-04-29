@@ -10,10 +10,16 @@
 String printable_str(va_list *args, FMT *fmt)
 {
 	String str;
-	char *s = va_arg(*args, char *);
+	char *s;
 	int len, i, j = 0;
 	(void)fmt;
 
+	if (fmt->width == -2)
+		fmt->width = va_arg(*args, int);
+	if (fmt->dp == -2)
+		fmt->dp = va_arg(*args, int);
+
+	s = va_arg(*args, char *);
 	if (!s)
 		s = "";
 	len = strlen(s);
