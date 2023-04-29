@@ -65,11 +65,7 @@ int _printf(const char *format, ...)
 			printer = spe->printer;
 			if (!printer)
 			{
-<<<<<<< HEAD
-				buffer[k++] = format[strchr(exspe, format[k + 1]) ? i++ : i];
-=======
 				buffer[k++] = format[i];
->>>>>>> parent of c37764b (Add functionality to handle specifiers with the l and h modifiers for integers)
 				continue;
 			}
 			str = printer(&args, spe);
