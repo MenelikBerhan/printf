@@ -22,7 +22,7 @@ int fmt_width(int i, int n, int dp, FMT *fmt, char **num)
 		memset(*num + i, ' ', factor);
 		if (!fmt->left)
 		{
-			if (fmt->type == 'x' || fmt->type == 'X' || fmt->type == 'b')
+			if ((fmt->type == 'x' || fmt->type == 'X' || fmt->type == 'b') && fmt->base_prefix)
 			{
 				memmove(*num + (mn ? 1 : 0) + 2 + factor, *num + (mn ? 1 : 0) + 2, i);
 				memset(*num + (mn ? 1 : 0) + 2, fmt->dp > 0 ? ' ' : fmt->leading, factor);
