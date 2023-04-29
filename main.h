@@ -88,5 +88,7 @@ uint64_t sign_int_type(va_list *args, FMT *fmt);
 void base_convert(unsigned long, int, int, int, int *, char **);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 void print_buffer(char *str);
+void pointer_width(char **s, FMT *fmt, int i);
+void ptr_fmt(String *num, int i);
 
 #endif /* MAIN_H */
