@@ -19,7 +19,7 @@ String int_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	n = int_type(args, fmt);
-	neg = n < 0;
+	neg = n.n < 0;
 	num.s = malloc(i + 1);
 	if (!num.s)
 	{
