@@ -21,6 +21,23 @@ void buffer_overflow(String str, char *buffer, int *k, int *l, int *m)
 }
 
 /**
+ * null_printer - handles exceptions with no printer function
+ * @format: format string
+ * @buffer: buffer
+ * @i: currrent @format index
+ * @k: current @buffer index
+ */
+void null_printer(const char *format, char *buffer, int *i, int *k)
+{
+	char exspe[] = "lh";
+
+	if (format[(*i) + 1] == ' ')
+		buffer[(*k)++] = format[(*i) += 2];
+	else
+		buffer[(*k)++] = format[strchr(exspe, format[(*i) + 1]) ? (*i)++ : (*i)];
+}
+
+/**
  * _printf - produces output according to a format
  * @format: format of which to print
  *
@@ -33,7 +50,7 @@ int _printf(const char *format, ...)
 	FMT *specifiers, *spe;
 	FMT_FUNC printer;
 	String str;
-	char buffer[BUFFER_SIZE] = "\0", exspe[] = "lh";
+	char buffer[BUFFER_SIZE] = "\0";
 
 	if (!format)
 		return (-1);
@@ -48,10 +65,7 @@ int _printf(const char *format, ...)
 			printer = spe->printer;
 			if (!printer)
 			{
-				if (format[i + 1] == ' ')
-					buffer[k++] = format[i += 2];
-				else
-					buffer[k++] = format[strchr(exspe, format[i + 1]) ? i++ : i];
+				null_printer(format, buffer, &i, &k);
 				continue;
 			}
 			str = printer(&args, spe);
