@@ -15,6 +15,28 @@ void ptr_fmt(String *num, int i)
 	num->s[0] = '0';
 	num->s[1] = 'x';
 }
+/**
+ * pointer_width - handles width flag for pointer specifiers
+ * @s: buffer holding integer string
+ * @fmt: format specifier struct
+ * @i: current index
+ */
+void pointer_width(char **s, FMT *fmt, int i)
+{
+	int factor;
+
+	*s = realloc(*s, (sizeof(char) * (fmt->width + 1)));
+	if (!fmt->left)
+	{
+		factor = fmt->width - i + 1;
+		memmove(*s + factor, *s, i);
+		memset(*s, fmt->leading, factor);
+	}
+	else
+		for (; i <= fmt->width; i++)
+			(*s)[i - 1] = ' ';
+	(*s)[fmt->width] = '\0';
+}
 
 /**
  * pointer_fmt - converts a pointer address to a string
@@ -27,7 +49,7 @@ String pointer_fmt(va_list *args, FMT *fmt)
 {
 	String num;
 	long ptr;
-	int i = 1, factor;
+	int i = 1;
 	char nil[] = "(nil)";
 
 	if (fmt->width == -2)
@@ -41,8 +63,17 @@ String pointer_fmt(va_list *args, FMT *fmt)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-	base_convert(ptr, 16, 0, 0, &i, &num.s);
+	if (ptr == -1)
+	{
+		i = 16;
+		num.s = realloc(num.s, i + 1);
+		strcpy(num.s, "ffffffffffffffff");
+	}
+	else
+		base_convert(ptr, 16, 0, 0, &i, &num.s);
+	
 	ptr_fmt(&num, i);
+
 	if (!ptr)
 	{
 		num.s = realloc(num.s, 6);
@@ -50,19 +81,7 @@ String pointer_fmt(va_list *args, FMT *fmt)
 		i = 6;
 	}
 	if (i < fmt->width)
-	{
-		num.s = realloc(num.s, (sizeof(char) * (fmt->width + 1)));
-		if (!fmt->left)
-		{
-			factor = fmt->width - i + 1;
-			memmove(&num.s[factor], &num.s[0], i);
-			memset(num.s, fmt->leading, factor);
-		}
-		else
-			for (; i <= fmt->width; i++)
-				num.s[i - 1] = ' ';
-		num.s[fmt->width] = '\0';
-	}
+		pointer_width(&num.s, fmt, i);
 	num.len = strlen(num.s);
 	return (num);
 }

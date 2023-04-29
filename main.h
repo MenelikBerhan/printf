@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -21,6 +22,19 @@ typedef struct str_fmt
 	char *s;
 	int len;
 } String;
+
+/**
+ * struct int_fmt - struct for a integer and it's sign
+ * @n: the string
+ * @neg: @s negative?
+ *
+ * Description: This struct holds a integer and it's sign
+ */
+typedef struct int_fmt
+{
+	unsigned long n;
+	int neg;
+} Int;
 
 /**
  * struct fmt - struct for format specifiers details
@@ -69,7 +83,9 @@ String rev_fmt(va_list *args, FMT *fmt);
 String rot13_fmt(va_list *args, FMT *fmt);
 String oct_fmt(va_list *args, FMT *fmt);
 String bin_fmt(va_list *args, FMT *fmt);
-void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res);
+Int int_type(va_list *args, FMT *fmt);
+uint64_t sign_int_type(va_list *args, FMT *fmt);
+void base_convert(unsigned long, int, int, int, int *, char **);
 int p_w_int(int i, int n, FMT *fmt, char **num);
 void print_buffer(char *str);
 

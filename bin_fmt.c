@@ -19,7 +19,7 @@ String bin_fmt(va_list *args, FMT *fmt)
 	if (fmt->dp == -2)
 		fmt->dp = va_arg(*args, int);
 
-	n = va_arg(*args, unsigned int);
+	n = sign_int_type(args, fmt);
 	num.s = malloc(i + 1);
 	if (!num.s)
 	{

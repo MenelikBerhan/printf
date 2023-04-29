@@ -21,6 +21,23 @@ void buffer_overflow(String str, char *buffer, int *k, int *l, int *m)
 }
 
 /**
+ * null_printer - handles exceptions with no printer function
+ * @format: format string
+ * @buffer: buffer
+ * @i: currrent @format index
+ * @k: current @buffer index
+ */
+void null_printer(const char *format, char *buffer, int *i, int *k)
+{
+	char exspe[] = "lh";
+
+	if (format[(*i) + 1] == ' ')
+		buffer[(*k)++] = format[(*i) += 2];
+	else
+		buffer[(*k)++] = format[strchr(exspe, format[(*i) + 1]) ? (*i)++ : (*i)];
+}
+
+/**
  * _printf - produces output according to a format
  * @format: format of which to print
  *

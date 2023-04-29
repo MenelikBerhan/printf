@@ -10,7 +10,7 @@
 String int_fmt(va_list *args, FMT *fmt)
 {
 	String num;
-	long n;
+	Int n;
 	int neg, i = 1, width, dp;
 
 	if (fmt->width == -2)
@@ -18,7 +18,7 @@ String int_fmt(va_list *args, FMT *fmt)
 	if (fmt->dp == -2)
 		fmt->dp = va_arg(*args, int);
 
-	n = va_arg(*args, int);
+	n = int_type(args, fmt);
 	neg = n < 0;
 	num.s = malloc(i + 1);
 	if (!num.s)
@@ -26,15 +26,14 @@ String int_fmt(va_list *args, FMT *fmt)
 		perror("malloc2");
 		exit(EXIT_FAILURE);
 	}
-	if (!n)
-		n = 0;
-	if (neg)
+	if (!n.n)
+		n.n = 0;
+	if (n.neg)
 	{
-		n *= -1;
 		num.s[0] = '-';
 		i++;
 	}
-	base_convert(n, 10, 0, neg, &i, &num.s);
+	base_convert(n.n, 10, 0, neg, &i, &num.s);
 	num.s[i - 1] = '\0';
 	dp = (i - 1) < fmt->dp;
 	width = (i - 1) < fmt->width;
@@ -45,7 +44,7 @@ String int_fmt(va_list *args, FMT *fmt)
 		num.s = realloc(num.s, i + 1);
 		if (i > fmt->width || fmt->left)
 			memmove(&num.s[1], &num.s[0], fmt->left ? --i : i);
-		num.s[0] = (fmt->i_plus || dp || width) ? ' ' : '+';
+		num.s[0] = ((fmt->i_plus || dp || width) && !fmt->p_plus) ? ' ' : '+';
 	}
 	num.len = strlen(num.s);
 	return (num);
