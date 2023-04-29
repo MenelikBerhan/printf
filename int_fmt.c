@@ -11,12 +11,12 @@ String int_fmt(va_list *args, FMT *fmt)
 {
 	String num;
 	Int n = int_type(args, fmt);
-	int neg = n.n, i = 1, width, dp;
+	int neg = n.neg, i = 1, width, dp;
 
 	num.s = malloc(i + 1);
 	if (!num.s)
 	{
-		perror("malloc2");
+		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
 	if (!n.n)
