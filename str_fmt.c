@@ -77,7 +77,7 @@ String str_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	s = va_arg(*args, char *);
-	if ((unsigned long)s == 2147484671)
+/* 	if ((unsigned long)s == 2147484671)
 	{
 		l_str = 2;
 		str.s = malloc(l_str + 1);
@@ -85,7 +85,7 @@ String str_fmt(va_list *args, FMT *fmt)
 		str.s[l_str] = '\0';
 		str.len = l_str;
 		return (str);
-	}
+	} */
 	if (!s && fmt->dp < 6)
 		s = "";
 	else if (!s)
