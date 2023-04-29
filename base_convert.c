@@ -9,9 +9,13 @@
  * @i: no of recursive calls
  * @r: buffer to store the string
  */
+<<<<<<< HEAD
 void base_convert(unsigned long n, int b, int cap, int neg, int *i, char **r)
+=======
+void base_convert(long n, int base, int hex_cap, int neg, int *i, char **res)
+>>>>>>> parent of c37764b (Add functionality to handle specifiers with the l and h modifiers for integers)
 {
-	unsigned long num = n;
+	long num = n;
 	int j = (*i)++, k;
 	char *hex = "0123456789abcdef";
 	char *hex_caps = "0123456789ABCDEF";

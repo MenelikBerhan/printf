@@ -11,7 +11,7 @@
 String oct_fmt(va_list *args, FMT *fmt)
 {
 	String num;
-	unsigned long n = sign_int_type(args, fmt);
+	unsigned long n = va_arg(*args, unsigned int);
 	int i = 1;
 
 	num.s = malloc(i + 1);

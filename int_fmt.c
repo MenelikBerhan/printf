@@ -10,8 +10,8 @@
 String int_fmt(va_list *args, FMT *fmt)
 {
 	String num;
-	Int n = int_type(args, fmt);
-	int neg = n.neg, i = 1, width, dp;
+	long n = va_arg(*args, int);
+	int neg = n < 0, i = 1, width, dp;
 
 	num.s = malloc(i + 1);
 	if (!num.s)
@@ -19,14 +19,15 @@ String int_fmt(va_list *args, FMT *fmt)
 		perror("malloc2");
 		exit(EXIT_FAILURE);
 	}
-	if (!n.n)
-		n.n = 0;
-	if (n.neg)
+	if (!n)
+		n = 0;
+	if (neg)
 	{
+		n *= -1;
 		num.s[0] = '-';
 		i++;
 	}
-	base_convert(n.n, 10, 0, neg, &i, &num.s);
+	base_convert(n, 10, 0, neg, &i, &num.s);
 	num.s[i - 1] = '\0';
 	dp = (i - 1) < fmt->dp;
 	width = (i - 1) < fmt->width;
