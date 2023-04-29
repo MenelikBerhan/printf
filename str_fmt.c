@@ -86,7 +86,9 @@ String str_fmt(va_list *args, FMT *fmt)
 		str.len = l_str;
 		return (str);
 	}
-	if (!s)
+	if (!s && fmt->dp < 6)
+		s = "";
+	else if (!s)
 		s = "(null)";
 	l_data = strlen(s);
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
