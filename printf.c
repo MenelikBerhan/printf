@@ -68,6 +68,7 @@ int _printf(const char *format, ...)
 				buffer[k++] = '%';
 				if (spe->ex_type)
 					buffer[k++] = spe->ex_type;
+				i = spe->endidx - 1; 
 				continue;
 			}
 			str = printer(&args, spe);
