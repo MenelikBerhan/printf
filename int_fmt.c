@@ -11,7 +11,7 @@ String int_fmt(va_list *args, FMT *fmt)
 {
 	String num;
 	long n;
-	int neg = n < 0, i = 1, width, dp;
+	int neg, i = 1, width, dp;
 
 	if (fmt->width == -2)
 		fmt->width = va_arg(*args, int);
@@ -19,6 +19,7 @@ String int_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	n = va_arg(*args, int);
+	neg = n < 0;
 	num.s = malloc(i + 1);
 	if (!num.s)
 	{
