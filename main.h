@@ -31,8 +31,8 @@ typedef struct str_fmt
  */
 typedef struct int_fmt
 {
-	char *s;
-	int len;
+	unsigned long n;
+	int neg;
 } Int;
 
 /**
