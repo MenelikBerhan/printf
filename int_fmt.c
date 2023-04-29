@@ -10,9 +10,15 @@
 String int_fmt(va_list *args, FMT *fmt)
 {
 	String num;
-	Int n = int_type(args, fmt);
-	int neg = n.neg, i = 1, width, dp;
+	Int n;
+	int neg, i = 1, width, dp;
 
+	if (fmt->width == -2)
+		fmt->width = va_arg(*args, int);
+	if (fmt->dp == -2)
+		fmt->dp = va_arg(*args, int);
+	n = int_type(args, fmt);
+	neg = n.neg;
 	num.s = malloc(i + 1);
 	if (!num.s)
 	{

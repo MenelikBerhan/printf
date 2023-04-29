@@ -68,9 +68,15 @@ void str_buffer_write(char *src, int l_src, char *str, int l_str, FMT *fmt)
 String str_fmt(va_list *args, FMT *fmt)
 {
 	String str;
-	char *s = va_arg(*args, char *);
+	char *s;
 	int l_str, l_data;
 
+	if (fmt->width == -2)
+		fmt->width = va_arg(*args, int);
+	if (fmt->dp == -2)
+		fmt->dp = va_arg(*args, int);
+
+	s = va_arg(*args, char *);
 	if ((unsigned long)s == 2147484671)
 	{
 		l_str = 2;
