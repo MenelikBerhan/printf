@@ -20,13 +20,13 @@ void char_w_l(String *str, FMT *fmt, char ch, int len)
 	}
 	if (fmt->left)
 	{
-		str->s[0] = ch;
+		str->s[0] = ch ? ch : ' ';
 		for (i = 1; i < len; i++)
 			str->s[i] = ' ';
 	}
 	else
 	{
-		str->s[len - 1] = ch;
+		str->s[len - 1] = ch ? ch : ' ';
 		for (i = 0; i < len - 1; i++)
 			str->s[i] = ' ';
 	}
