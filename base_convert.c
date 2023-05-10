@@ -20,7 +20,9 @@ void base_convert(unsigned long n, int b, int cap, int neg, int *i, char **r)
 	num /= b;
 	if (num != 0)
 		base_convert(num, b, cap, neg, i, r);
-	k = (*i) - (neg ? j : j + 1);
+
+	k = (*i) - (j + 1);
+
 	if (!cap)
 		(*r)[k] = hex[n % b];
 	else
