@@ -77,17 +77,14 @@ String str_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	s = va_arg(*args, char *);
-	if ((unsigned long)s == 2147484671)
-	{
-		l_str = 2;
-		str.s = malloc(l_str + 1);
-		strcpy(str.s, "%s");
-		str.s[l_str] = '\0';
-		str.len = l_str;
-		return (str);
-	}
+
 	if (!s)
-		s = "(null)";
+	{
+		if (fmt->dp != -1 && fmt->dp < 6)
+			s = "";
+		else
+			s = "(null)";
+	}
 	l_data = strlen(s);
 	l_str = str_buffer_size(fmt->width, fmt->dp, l_data);
 	str.s = malloc(sizeof(char) * (l_str + 1));
