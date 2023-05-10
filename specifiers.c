@@ -10,9 +10,9 @@
  */
 int fill_fmt(const char *str, FMT *spe, int i)
 {
-	char ex_char[] = "SRX%";
+	char ex_char[] = "+ -.#*0123456789";
 
-	while ((str[i] < 'a' || str[i] > 'z') && !strchr(ex_char, str[i]))
+	while (str[i] && strchr(ex_char, str[i]))
 	{
 		if (str[i] == '+')
 			spe->p_plus = 1;
@@ -131,5 +131,7 @@ FMT *get_specifiers(const char *str)
 		else
 			i++;
 	}
+	if (j == 0)
+		free(specifiers);
 	return (!j ? NULL : specifiers);
 }
