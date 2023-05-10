@@ -87,6 +87,6 @@ Int int_type(va_list *args, FMT *fmt);
 uint64_t sign_int_type(va_list *args, FMT *fmt);
 void base_convert(unsigned long, int, int, int, int *, char **);
 int p_w_int(int i, int n, FMT *fmt, char **num);
-void print_buffer(char *str);
+void print_buffer(char *str, int len);
 
 #endif /* MAIN_H */
