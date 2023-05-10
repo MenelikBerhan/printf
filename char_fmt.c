@@ -18,15 +18,16 @@ void char_w_l(String *str, FMT *fmt, char ch, int len)
 		str->s[0] = ch;
 		return;
 	}
+
 	if (fmt->left)
 	{
-		str->s[0] = ch ? ch : ' ';
+		str->s[0] = ch;
 		for (i = 1; i < len; i++)
 			str->s[i] = ' ';
 	}
 	else
 	{
-		str->s[len - 1] = ch ? ch : ' ';
+		str->s[len - 1] = ch;
 		for (i = 0; i < len - 1; i++)
 			str->s[i] = ' ';
 	}
@@ -51,15 +52,7 @@ String char_fmt(va_list *args, FMT *fmt)
 		fmt->dp = va_arg(*args, int);
 
 	ch = va_arg(*args, unsigned int);
-	if (ch < 0)
-	{
-		len = !ch ? 1 : 2;
-		str.s = malloc(len + 1);
-		strcpy(str.s, !ch ? "\0" : "%c");
-		str.s[len] = '\0';
-		str.len = len;
-		return (str);
-	}
+
 	len = fmt->width ? fmt->width : 1;
 	str.len = len;
 	str.s = malloc(sizeof(char) * (len + 1));
@@ -68,7 +61,9 @@ String char_fmt(va_list *args, FMT *fmt)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
+
 	str.s[len] = '\0';
 	char_w_l(&str, fmt, ch, len);
+
 	return (str);
 }
