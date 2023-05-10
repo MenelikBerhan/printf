@@ -15,10 +15,10 @@ String rev_fmt(va_list *args, FMT *fmt)
 	int i, len = 0;
 	(void)fmt;
 
-	if ((unsigned long)s == 12)
+	if (!s)
 	{
 		len = 2;
-		str.s = malloc(len + 1);
+		str.s = malloc(sizeof(char) * (len + 1));
 		strcpy(str.s, "%r");
 		str.s[2] = '\0';
 		str.len = len;
