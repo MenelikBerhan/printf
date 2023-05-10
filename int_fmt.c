@@ -27,6 +27,7 @@ String int_fmt(va_list *args, FMT *fmt)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
+
 	if (!n.n)
 		n.n = 0;
 

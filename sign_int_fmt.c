@@ -24,6 +24,7 @@ String sign_int_fmt(va_list *args, FMT *fmt)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
+
 	if (!n)
 		n = 0;
 	base_convert(n, 10, 0, 0, &i, &num.s);
