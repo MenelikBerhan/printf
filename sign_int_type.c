@@ -13,7 +13,7 @@ uint64_t sign_int_type(va_list *args, FMT *fmt)
 
 	if (fmt->ex_type == 'l')
 		num = va_arg(*args, unsigned long);
-	else if (fmt->ex_type == 's')
+	else if (fmt->ex_type == 'h')
 		num = (unsigned short)va_arg(*args, unsigned int);
 	else
 		num = va_arg(*args, unsigned int);

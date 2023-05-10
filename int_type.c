@@ -14,11 +14,13 @@ Int int_type(va_list *args, FMT *fmt)
 
 	if (fmt->ex_type == 'l')
 		temp = va_arg(*args, long);
-	else if (fmt->ex_type == 's')
+	else if (fmt->ex_type == 'h')
 		temp = (short)va_arg(*args, int);
 	else
 		temp = va_arg(*args, int);
+
 	num.neg = temp < 0;
 	num.n = num.neg ? -temp : temp;
+
 	return (num);
 }
