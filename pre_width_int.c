@@ -1,46 +1,6 @@
 #include "main.h"
 
 /**
- * fmt_width - handles the width flags for all interger
- * @i: current length
- * @n: is the num negative
- * @dp: has precision been handled
- * @fmt: format struct
- * @num: buffer to store string
- *
- * Return: final precision
- */
-int fmt_width(int i, int n, int dp, FMT *fmt, char **num)
-{
-	int factor;
-
-	if (i < fmt->width)
-	{
-		int mn = n && fmt->leading == '0' && !dp;
-		*num = realloc(*num, (sizeof(char) * (fmt->width + 1)));
-		factor = fmt->width - i;
-		memset(*num + i, ' ', factor);
-		if (!fmt->left)
-		{
-			if ((fmt->type == 'x' || fmt->type == 'X' || fmt->type == 'b') && fmt->base_prefix)
-			{
-				memmove(*num + (mn ? 1 : 0) + 2 + factor, *num + (mn ? 1 : 0) + 2, i);
-				memset(*num + (mn ? 1 : 0) + 2, fmt->dp > 0 ? ' ' : fmt->leading, factor);
-			}
-			else
-			{
-				memmove(*num + (mn ? 1 : 0) + factor, *num + (mn ? 1 : 0), i);
-				memset(*num + (mn ? 1 : 0), fmt->dp > 0 ? ' ' : fmt->leading, factor);
-			}
-		}
-		if (fmt->p_plus)
-			(*num)[factor - 1] = '+';
-		(*num)[fmt->width] = '\0';
-	}
-	return (i);
-}
-
-/**
  * p_w_int - handles db, base_prefix and width flags for integers
  * @i: current length
  * @n: is the num negative
@@ -51,29 +11,105 @@ int fmt_width(int i, int n, int dp, FMT *fmt, char **num)
  */
 int p_w_int(int i, int n, FMT *fmt, char **num)
 {
-	int factor, dp;
+	int factor, factor2;
 
 	--i;
-	dp = i < fmt->dp;
+
+	if (fmt->dp != -1 || fmt->left)
+		fmt->leading = ' ';
+	if (strchr("xXob", fmt->type))
+	{
+		n = 0;
+		fmt->i_plus = 0;
+		fmt->p_plus = 0;
+	}
+
+	if ((fmt->dp == -1 || fmt->dp == 0) && (i == 1 && (*num)[0] == '0'))
+		fmt->base_prefix = 0;
+
+	if (!fmt->dp)
+	{
+		fmt->leading = ' ';
+		if (i == 1 && (*num)[0] == '0')
+		{
+			*num = realloc(*num, 0);
+			i = 0;
+		}
+	}
+
 	if (i < fmt->dp)
 	{
-		int mn = n || fmt->p_plus;
-		*num = realloc(*num, (sizeof(char) * (fmt->dp + 1 + mn)));
-		factor = fmt->dp + mn - i;
-		memmove(*num + factor + n, *num + n, i + mn);
-		memset(*num, '0', factor + n);
-		if (mn)
-			(*num)[0] = n ? '-' : '+';
-		i = fmt->dp + mn;
+		*num = realloc(*num, (sizeof(char) * (fmt->dp + 1)));
+		factor = fmt->dp - i;
+		memmove(*num + factor, *num, i);
+		memset(*num, '0', factor);
+		i = fmt->dp;
 	}
-	if (fmt->base_prefix && !(fmt->type == 'o' && dp) && (*num)[0] != '0')
+
+	factor = 0;
+	if (strchr("xXob", fmt->type) && fmt->base_prefix)
+		factor = fmt->type == 'o' ? 1 : 2;
+	if (strchr("dui", fmt->type))
+		factor = (n || fmt->i_plus || fmt->p_plus) ? 1 : 0;
+
+	if (i + factor < fmt->width && !fmt->left && fmt->leading == '0')
 	{
-		i += fmt->type == 'o' ? 1 : 2;
-		*num = realloc(*num, i + 1);
-		memmove(*num + (fmt->type == 'o' ? 1 : 2), *num, fmt->left ? --i : i);
-		(*num)[0] = '0';
-		if (fmt->type == 'x' || fmt->type == 'X' || fmt->type == 'b')
-			(*num)[1] = fmt->type;
+		*num = realloc(*num, (sizeof(char) * (fmt->width + 1)));
+		factor2 = fmt->width - i;
+		memmove(*num + factor2, *num, i);
+		memset(*num + factor, '0', (factor2 - factor));
+		if (strchr("xXob", fmt->type) && fmt->base_prefix)
+		{
+			(*num)[0] = '0';
+			if (strchr("xXb", fmt->type))
+				(*num)[1] = strchr("xXb", fmt->type)[0];
+		}
+		if (strchr("dui", fmt->type) && (n || fmt->p_plus || fmt->i_plus))
+		{
+			if (n)
+				(*num)[0] = '-';
+			else
+				(*num)[0] = " +"[fmt->p_plus];
+		}
+		return (fmt->width);
 	}
-	return (fmt_width(i, n, dp, fmt, num));
+
+	if (factor)
+	{
+		*num = realloc(*num, (sizeof(char) * (i + factor + 1)));
+		memmove(*num + factor, *num, i);
+		if (strchr("xXob", fmt->type) && fmt->base_prefix)
+		{
+
+			(*num)[0] = '0';
+			if (strchr("xXb", fmt->type))
+				(*num)[1] = strchr("xXb", fmt->type)[0];
+		}
+		if (strchr("dui", fmt->type) && (n || fmt->p_plus || fmt->i_plus))
+		{
+			if (n)
+				(*num)[0] = '-';
+			else
+				(*num)[0] = " +"[fmt->p_plus];
+		}
+		i += factor;
+	}
+
+	if (i < fmt->width)
+	{
+		factor = fmt->width - i;
+		*num = realloc(*num, (sizeof(char) * (fmt->width + 1)));
+		if (fmt->left)
+		{
+			memset(*num + i, fmt->leading, factor);
+		}
+		else
+		{
+			memmove(*num + factor, *num, i);
+			memset(*num, fmt->leading, factor);
+		}
+		i = fmt->width;
+	}
+
+	return (i);
 }
