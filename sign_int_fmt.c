@@ -29,14 +29,7 @@ String sign_int_fmt(va_list *args, FMT *fmt)
 	base_convert(n, 10, 0, 0, &i, &num.s);
 	num.s[i - 1] = '\0';
 	i = p_w_int(i, 0, fmt, &num.s);
-	if ((fmt->p_plus || fmt->i_plus))
-	{
-		i = (i >= fmt->width) ? i : fmt->width;
-		num.s = realloc(num.s, i + 1);
-		if (i > fmt->width || fmt->left)
-			memmove(&num.s[1], &num.s[0], fmt->left ? --i : i);
-		num.s[0] = (fmt->i_plus) ? ' ' : '+';
-	}
-	num.len = strlen(num.s);
+
+	num.len = i;
 	return (num);
 }
